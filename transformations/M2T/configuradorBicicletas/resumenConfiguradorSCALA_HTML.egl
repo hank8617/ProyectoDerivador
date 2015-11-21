@@ -1,0 +1,31 @@
+@(	resultadoConfiguracion: ConfiguradorController.ResultadosSeleccion)
+
+@import helper._;
+
+@main("Configurador bicicleta") {
+
+
+
+    <div class="row">
+	  <div class="col-md-offset-3 col-md-6">
+	      <div class="panel-body" style="background-image:url('/assets/images/encabezado_resumen.jpg'); width: 1105px; height: 558px">
+	      	<div class="col-md-6">
+	      	
+	      	</div>
+	      	<div class="col-md-6">
+	      		<div style="margin-top: 200px">
+			      	<h4>@resultadoConfiguracion.sel_tipo_bicicleta</h4>
+					<h4>@resultadoConfiguracion.sel_rueda</h4>
+					<h4>@resultadoConfiguracion.sel_material</h4>
+					<h4>@resultadoConfiguracion.sel_color</h4>
+					<h4>@resultadoConfiguracion.sel_accesorios_bicicleta</h4>
+				</div>
+			</div>
+	      </div>
+	     
+	  </div>
+	</div>
+}
+
+
+	
