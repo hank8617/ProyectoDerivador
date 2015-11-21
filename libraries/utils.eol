@@ -35,18 +35,36 @@ operation stringSinEspacios(a : String) : String{
 
 //Creaci�n de directorios
 operation projectName() : String{
-	return "escarabajo";
+	return "escarabajo/";
+}
+
+operation appDir() : String{
+	return projectName()+"app/";
 }
 
 operation controllersDir() : String{
-	return 
+	return appDir()+"controllers/";
 }
 
+operation databaseDir(){
+	return appDir()+"database/";
+}
+
+operation modelsDir(){
+	return appDir()+"models/";
+}
+
+operation viewsDir(){
+	return appDir()+"views/";
+}
 
 operation persistenceControllerDir() {
 	return srcDir()+packageToDir(persistenceManagerPackage());
 }
 
+operation confDir(){
+	return projectName()+"conf/";
+}
 
 
 //Creacion de paquetes

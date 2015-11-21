@@ -1,0 +1,51 @@
+@(sitioForm: ControllerSitiosDeAlquiler.FormularioSitioDeAlquiler,
+	nuevoSitio: Boolean)
+@import helper._
+
+@main("Formulario sitio de alquiler") {	
+	<h1></h1>
+	@helper.form(action = routes.ControllerSitiosDeAlquiler.save(nuevoSitio)) {
+	<fieldset style="padding-left: 1cm;">
+		@if(nuevoSitio){
+		<legend>Sitio de alquiler: Nuevo sitio</legend>		
+		}else{
+		<legend>Sitio de alquiler: @sitioForm.nombre</legend>
+		}		
+		<input name="id" id="id" type="hidden" value="@sitioForm.id"/>
+		<table class="table">		
+			<tr>
+				<td width="20%">Nombre:</td>
+				<td width="20%"><input placeholder="nombre" class="form-control" name="nombre" id="nombre" value="@sitioForm.nombre"/></td>
+				<td width="60%"><em>Agregue un nombre para el sitio de alquiler.</td>
+			</tr>
+			<tr>
+				<td width="20%">Indicativo telefono fijo:</td>
+				<td width="20%"><input placeholder="Inserte un numero de indicativo" class="form-control" name="indicativoTelefonoFijo" id="indicativoTelefonoFijo" value="@sitioForm.indicativoTelefonoFijo"/></td>
+				<td width="60%"><em>Inserte el indicativo del telefono fijo donde sus clientes lo podrán encontrar.</td>
+			</tr>
+			<tr>
+				<td width="20%">Telefono fijo:</td>
+				<td width="20%"><input placeholder="Inserte un numero de telefono" class="form-control" name="telefonoFijo" id="telefonoFijo" value="@sitioForm.telefonoFijo"/></td>
+				<td width="60%"><em>Inserte el telefono fijo donde sus clientes lo podrán encontrar.</td>
+			</tr>
+			<tr>
+				<td width="20%">Celular:</td>
+				<td width="20%"><input placeholder="Inserte un numero de celular" class="form-control" name="celular" id="celular" value="@sitioForm.celular"/></td>
+				<td width="60%"><em>Inserte el numero de celular donde sus clientes lo podrán encontrar.</td>
+			</tr>
+			<tr>
+				<td width="20%">Email:</td>
+				<td width="20%"><input placeholder="Inserte un email" class="form-control" name="email" id="email" value="@sitioForm.email"/></td>
+				<td width="60%"><em>Inserte un email para comunicación con sus clientes.</td>
+			</tr>
+			<tr>
+				<td width="20%">Tarifa por hora:</td>
+				<td width="20%"><input placeholder="Inserte un valor" class="form-control" name="tarifa_x_h" id="tarifa_x_h" value="@sitioForm.tarifa_x_h"/></td>
+				<td width="60%"><em>Inserte el valor de cobrado por hora para el alquiler de las bicicletas.</td>
+			</tr>
+		</table>
+	</fieldset>
+	<input type="submit" class="btn btn-primary" value="Guardar" style="margin-left: 1cm;">
+	<a class="btn" href="@routes.ControllerSitiosDeAlquiler.listarSitiosDeAlquiler()">Cancelar</a>
+	}
+}

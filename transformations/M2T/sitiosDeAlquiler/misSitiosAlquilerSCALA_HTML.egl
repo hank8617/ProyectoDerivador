@@ -1,0 +1,99 @@
+@(sitios: List[SitioDeAlquiler], estaciones: List[Estacion])
+	
+@import helper._
+
+@main("Sitios de alquiler") {
+
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+<script src="@routes.Assets.at("javascripts/jquery-1.4.2.min.js")" type="text/javascript"></script>
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+
+<script>
+function del(urlToDelete) {
+$.ajax({
+url: urlToDelete,
+type: 'DELETE',
+success: function(results) {
+// Refresh the page
+location.reload();
+}
+});
+}
+</script>
+
+<div class="container">
+
+@if(sitios.size()>0){
+	@for(sitio <- sitios) {
+	<div>
+		<label style="font-size: 30px;"><a href="@routes.ControllerSitiosDeAlquiler.detailsSitioAlquiler(sitio.id)">@sitio.nombre</a></label>
+		</br>
+		</br>
+		<div>
+			<label style="width: 160px">Teléfono: </label>
+			<label>@sitio.indicativoTelefonoFijo - @sitio.telefonoFijo</label>
+		</div>
+		<div>
+			<label style="width: 160px">Celular: </label>
+			<label>@sitio.celular</label>
+		</div>
+		<div>
+			<label style="width: 160px">Correo electrónico: </label>
+			<label>@sitio.email</label>
+		</div>
+		<div>
+			<label style="width: 160px">Tarifa por hora: </label>
+			<label>@sitio.tarifa_x_h</label>
+		</div>
+	</div>
+	}
+	
+	<br>
+	<h2>Estaciones</h2>
+		<br>
+			<table class="table">
+			    <thead>
+			        <tr>			        	
+			            <th>Nombre</th>
+			            <th>Latitud</th>
+						<th>Longitud</th>
+			            <th>Hora inicio de atención:</th>
+			            <th>Hora de fin de atención:</th>
+			            <th>Para alquiler:</th>
+						<th>Para entrega:</th>
+						<th></th>	           
+			        </tr>
+			    </thead>
+			    <tbody>
+			    	@for(estacion <- estaciones) {
+			        <tr>			        	
+						<td>@estacion.nombre</td>
+			            <td>@estacion.latitud</td>
+			            <td>@estacion.longitud</td>
+			            <td>@estacion.horaInicioAtencion</td>
+			            <td>@estacion.horaFinAtencion</td>
+			            <td>@if(estacion.paraAlquiler){Si}else{No}</td>
+			            <td>@if(estacion.paraEntrega){Si}else{No}</td>
+			            <td>
+							<td>
+								<a onclick="del('@routes.ControllerSitiosDeAlquiler.eliminarEstacion(estacion.id)')">Eliminar</a>
+								<a href="@routes.ControllerSitiosDeAlquiler.detailsEstacion(estacion.id)">Editar</a>
+							</td>
+						</td>
+			        </tr>
+			        }
+			    </tbody>
+			</table>
+	<form action="@routes.ControllerSitiosDeAlquiler.newEstacion()">
+	    <input type="submit" class="btn btn-primary btn-block" value="Añadir estacion">
+	</form>
+}else{
+	<form action="@routes.ControllerSitiosDeAlquiler.newSitio()">
+	    <input type="submit" class="btn btn-primary btn-block" value="Añadir sitio de alquiler">
+	</form>
+}
+
+}
+
+</div>
