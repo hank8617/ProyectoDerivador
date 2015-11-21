@@ -1,25 +1,22 @@
 [%import "../../libraries/utils.eol";%]
 
 [% 
-/*
-var sampleTool := new Native("java.lang.Integer")(10);
-sampleTool.println();*/
-
-var sampleTool = new Native("com.uniandes.lib.Prueba");
-sampleTool.name = "daf";
-
-/*
-	var implementation : Template;
 		
-	"Imprimiendo   ".println();
-	for(feature in Feature.allInstances()){
-		feature.name.println();
+	"Ha iniciado la ejecución de templates".println();
+	
+	var template : Template;
+
+	if(Feature.allInstances().exists(feat | feat.name="SitiosAlquiler")){		
+		template := TemplateFactory.load('./sitiosDeAlquiler/ctrlSitiosDeAlquiler.egl');
+		template.process();
 	}
-*/
-/*
-		var template : Template;
-		template := TemplateFactory.load('./template.egl');
-		template.generate('template.txt');
-*/
+	
+	//Archivos de configuración generales a todos los módulos
+	template := TemplateFactory.load('./routes.egl');
+	template.generate(confDir()+"routes");
+	
+	template := TemplateFactory.load('./mainSCALA_HTML.egl');
+	template.generate(viewsDir()+"/main.scala.html");
+	
 %]
 

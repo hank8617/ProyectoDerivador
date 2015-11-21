@@ -2,8 +2,20 @@
 
 [% 
 
-	var controlador : Template;
-	controlador := TemplateFactory.load('./template.egl');
-	controlador.generate('template.txt');
+	var template : Template;
+	template := TemplateFactory.load('./sitiosDeAlquiler/ControllerSitiosDeAlquilerJAVA.egl');
+	template.generate(controllersDir()+'ControllerSitiosDeAlquiler.java');
+	
+	template := TemplateFactory.load('./sitiosDeAlquiler/SitioDeAlquilerDAOJAVA.egl');
+	template.generate(databaseDir()+'SitioDeAlquilerDAO.java');
+	
+	template := TemplateFactory.load('./sitiosDeAlquiler/SitioDeAlquilerJAVA.egl');
+	template.generate(modelsDir()+'SitioDeAlquiler.java');
+	
+	template := TemplateFactory.load('./sitiosDeAlquiler/detalleAlquilerSCALA_HTML.egl');
+	template.generate(viewsDir()+'detalleAlquiler.scala.html');
+	
+	template := TemplateFactory.load('./sitiosDeAlquiler/misSitiosAlquilerSCALA_HTML.egl');
+	template.generate(viewsDir()+'misSitiosAlquiler.scala.html');
 
 %]
