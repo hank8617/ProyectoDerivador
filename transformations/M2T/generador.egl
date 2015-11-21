@@ -21,5 +21,5 @@ sampleTool.name = "daf";
 		template := TemplateFactory.load('./template.egl');
 		template.generate('template.txt');
 */
-%]
+%]   
 
