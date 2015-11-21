@@ -1,0 +1,9 @@
+[%import "../../../libraries/utils.eol";%]
+
+[% 
+
+	var controlador : Template;
+	controlador := TemplateFactory.load('./template.egl');
+	controlador.generate('template.txt');
+
+%]

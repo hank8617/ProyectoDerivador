@@ -1,0 +1,162 @@
+
+//import "../../libraries/commons-io-2.4.jar";
+//Manejo de cadenas
+operation String toLowerFirst() : String{
+ return ((self.charAt(0)+"").toLowerCase())+self.subString(1,self.length);
+}
+ 
+operation String toUpperFirst() : String{
+ return ((self.charAt(0)+"").toUpperCase())+self.subString(1,self.length);
+}
+
+operation toLowerFirst(cadena : String) : String{
+ return ((cadena.charAt(0)+"").toLowerCase())+cadena.subString(1,cadena.length);
+}
+ 
+operation toUpperFirst(cadena : String) : String{
+ return ((cadena.charAt(0)+"").toUpperCase())+cadena.subString(1,cadena.length);
+}
+
+operation removeAmpersands(cadena : String) : String{
+	return cadena.replace("&","");
+}
+
+operation stringSinEspacios(a : String) : String{
+			
+	var concatenado : String = "";
+	var split : Sequence = a.split(" ");
+			
+		for(elemento : String in split ){
+			concatenado = concatenado.concat(elemento.firstToUpperCase());
+		}
+	return concatenado;	
+}
+
+
+//Creaci�n de directorios
+operation projectName() : String{
+	return "escarabajo";
+}
+
+operation controllersDir() : String{
+	return 
+}
+
+
+operation persistenceControllerDir() {
+	return srcDir()+packageToDir(persistenceManagerPackage());
+}
+
+
+
+//Creacion de paquetes
+//Src package is the package that goes inside de src folder
+
+operation packageToDir(package : String) : String {
+	var packageFolders : String;
+	for(folder in package.split("\\.")){
+		packageFolders = packageFolders + folder + "/";
+	}
+	return packageFolders;
+}
+
+//Add file extensions
+operation addCharExtension() {
+	return ".cs";
+}
+
+
+
+
+
+/** Convierte una string en camel case a notación de base de datos
+	Ej: tipoDocumento se transforma a TIPO_DOCUMENTO
+*/
+operation String aCamelCase() : String{
+	var partes : Sequence = self.split("_");
+	var cadena : String = "";
+	if(partes.size()>0){
+		for(parte in partes){
+			if(loopCount=1){
+				cadena := cadena.concat(parte.toLowerCase());
+			}else{
+				cadena := cadena.concat(parte.toLowerCase().firstToUpperCase());
+			}
+		}
+	}else{
+		cadena := cadena.concat(self.toLowerCase());
+	}
+	return cadena;
+}
+
+
+
+
+/**
+	Añade comillas dobles al String que se pasa contextualmente
+*/
+operation String conComillas() : String{
+	return '"'+self+'"';
+}
+
+operation String obtieneNombreClase() : String{
+	var partes : Sequence = self.split("_");
+	var cadena : String = "";
+	if(partes.size()>0){
+		for(parte in partes){
+			if(loopCount=partes.size()){
+				cadena := parte.toLowerCase().toUpperFirst();
+			}
+		}
+	}else{
+		cadena := self.toLowerCase().toUpperFirst();
+	}
+	return cadena;
+}
+
+/**
+	Identifica si es obligatorio o no
+	Ej: 	varchar(40) -> string
+*/
+operation identificarObligatorio(tipoDato : String ) : String{
+
+	var tipo : String ;
+	if(tipoDato.startsWith("NOT")){
+		tipo = "?";
+	}
+	if(tipoDato.startsWith("varchar")){
+		tipo = "";
+	}
+	
+	return tipo;
+
+}
+
+/**
+	Identifica el tipo de dato 
+	Ej: 	varchar(40) -> string
+*/
+operation identificarTipoDato(tipoDato : String ) : String{
+
+	var tipo : String ;
+	if(tipoDato.startsWith("varchar")){
+		tipo = "string";
+	}
+	if(tipoDato.startsWith("numeric")){
+			tipo := "decimal";
+	}
+	
+	if(tipoDato.startsWith("timestamp")){
+		tipo = "DateTime";
+	}
+	if(tipoDato.startsWith("integer")){
+		tipo = "int";
+	}
+	if(tipoDato.startsWith("tinyint")){
+		tipo = "int";
+	}
+	
+	
+	return tipo;
+
+}

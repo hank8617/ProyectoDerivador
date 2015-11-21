@@ -1,0 +1,25 @@
+[%import "../../libraries/utils.eol";%]
+
+[% 
+/*
+var sampleTool := new Native("java.lang.Integer")(10);
+sampleTool.println();*/
+
+var sampleTool = new Native("com.uniandes.lib.Prueba");
+sampleTool.name = "daf";
+
+/*
+	var implementation : Template;
+		
+	"Imprimiendo   ".println();
+	for(feature in Feature.allInstances()){
+		feature.name.println();
+	}
+*/
+/*
+		var template : Template;
+		template := TemplateFactory.load('./template.egl');
+		template.generate('template.txt');
+*/
+%]
+
