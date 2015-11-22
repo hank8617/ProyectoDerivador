@@ -1,0 +1,249 @@
+[%
+	if(Feature.allInstances().exists(feat | feat.name="ReporteRutas")){%]
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2015-11-22T11:46:15 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SureporteRecorrido_Metricas" pageWidth="170" pageHeight="171" columnWidth="160" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="96b28573-a05a-4ca2-a9c0-479425c57737">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Escarabajo Adapter"/>
+	<parameter name="p_recorrido" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[SELECT * FROM CROSSTAB ('select mr.recorrido_id_recorrido,
+       me.nombre_metrica,
+       mr.valor_metrica
+from ruta ru, 
+     recorrido re,
+     metricas_x_recorridos mr,
+     metrica me
+where ru.recorrido_id_recorrido = re.id_recorrido
+      and re.id_recorrido = mr.recorrido_id_recorrido
+      and mr.metrica_id_metrica = me.id_metrica
+      and re.id_recorrido = ' || $P{p_recorrido} || '
+      and mr.usuario_id = 2
+      order by mr.fecha')
+ AS ct("recorrido_id_recorrido" bigint, "distancia_real" double precision, "tiempo_real" double precision, "velocidad_media" double precision, "distancia_estimada" double precision, "tiempo_estimado" double precision, "clima_temperatura_origen" double precision, "clima_temperatura_destino" double precision, "clima_humedad_origen" double precision, "clima_humedad_destino" double precision, "clima_nubosidad_origen" double precision, "clima_nubosidad_destino" double precision, "clima_viento_origen" double precision, "clima_viento_destino" double precision)]]>
+	</queryString>
+	<field name="distancia_real" class="java.lang.Double"/>
+	<field name="distancia_estimada" class="java.lang.Double"/>
+	<field name="tiempo_real" class="java.lang.Double"/>
+	<field name="tiempo_estimado" class="java.lang.Double"/>
+	<field name="velocidad_media" class="java.lang.Double"/>
+	<field name="clima_temperatura_origen" class="java.lang.Double"/>
+	<field name="clima_temperatura_destino" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="160" height="30" uuid="1071720d-fbee-4784-9acb-f6c759dc3fe3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MÉTRICAS]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="140" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="59080b31-6728-4eb8-afa5-333f06c38d1a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Distancia Estimada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="100" height="20" uuid="59080b31-6728-4eb8-afa5-333f06c38d1a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Distancia Real]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="100" height="20" uuid="59080b31-6728-4eb8-afa5-333f06c38d1a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Tiempo Estimado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="100" height="20" uuid="59080b31-6728-4eb8-afa5-333f06c38d1a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Tiempo Real]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="100" height="20" uuid="59080b31-6728-4eb8-afa5-333f06c38d1a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Velocidad Media]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="100" width="100" height="20" uuid="59080b31-6728-4eb8-afa5-333f06c38d1a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Temperatura Origen]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="120" width="100" height="20" uuid="59080b31-6728-4eb8-afa5-333f06c38d1a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Temperatura Destino]]></text>
+			</staticText>
+			<textField pattern="###0.00&apos; Km&apos;">
+				<reportElement x="100" y="0" width="60" height="20" uuid="1271afc4-8043-4000-8d84-66de890e453f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{distancia_estimada}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00&apos; Km&apos;">
+				<reportElement x="100" y="20" width="60" height="20" uuid="1271afc4-8043-4000-8d84-66de890e453f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{distancia_real}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00&apos; min&apos;">
+				<reportElement x="100" y="40" width="60" height="20" uuid="1271afc4-8043-4000-8d84-66de890e453f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tiempo_estimado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00&apos; min&apos;">
+				<reportElement x="100" y="60" width="60" height="20" uuid="1271afc4-8043-4000-8d84-66de890e453f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tiempo_real}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00&apos; Km/h&apos;">
+				<reportElement x="100" y="80" width="60" height="20" uuid="1271afc4-8043-4000-8d84-66de890e453f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{velocidad_media}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00&apos; °C&apos;">
+				<reportElement x="100" y="100" width="60" height="20" uuid="1271afc4-8043-4000-8d84-66de890e453f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clima_temperatura_origen}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00&apos; °C&apos;">
+				<reportElement x="100" y="120" width="60" height="20" uuid="1271afc4-8043-4000-8d84-66de890e453f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clima_temperatura_destino}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
+[%}
+%]

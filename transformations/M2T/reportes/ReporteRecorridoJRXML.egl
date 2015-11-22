@@ -1,0 +1,303 @@
+[%
+	if(Feature.allInstances().exists(feat | feat.name="ReporteRutas")){%]
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2015-11-22T10:47:56 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteRecorrido" pageWidth="840" pageHeight="600" orientation="Landscape" columnWidth="800" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f97bd324-632d-401c-9f0f-61a793306790">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Escarabajo Adapter"/>
+	<parameter name="p_usuario" class="java.lang.Long"/>
+	<parameter name="p_fecha" class="java.util.Date"/>
+	<parameter name="p_recorrido" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[select re.tipo,
+       re.nombre as nombre_recorrido,
+       re.descripcion as descripcion_recorrido,
+       re.hora_frecuente,
+       re.dia_frecuente,
+       ru.fecha_inicio_ruta,
+       ru.fecha_fin_ruta,
+       ru.lugar_inicio,
+       ru.lugar_fin,
+       ru.latitud_inicio,
+       ru.longitud_incio,
+       ru.latitud_fin,
+       ru.longitud_fin
+from recorrido re,
+     ruta ru
+where re.id_recorrido = ru.recorrido_id_recorrido
+      and re.id_recorrido = $P{p_recorrido}]]>
+	</queryString>
+	<field name="tipo" class="java.lang.Integer"/>
+	<field name="nombre_recorrido" class="java.lang.String"/>
+	<field name="descripcion_recorrido" class="java.lang.String"/>
+	<field name="hora_frecuente" class="java.lang.String"/>
+	<field name="dia_frecuente" class="java.lang.String"/>
+	<field name="fecha_inicio_ruta" class="java.util.Date"/>
+	<field name="fecha_fin_ruta" class="java.util.Date"/>
+	<field name="lugar_inicio" class="java.lang.String"/>
+	<field name="lugar_fin" class="java.lang.String"/>
+	<field name="latitud_inicio" class="java.lang.Double"/>
+	<field name="longitud_incio" class="java.lang.Double"/>
+	<field name="latitud_fin" class="java.lang.Double"/>
+	<field name="longitud_fin" class="java.lang.Double"/>
+	<variable name="center_latitude" class="java.lang.Double">
+		<variableExpression><![CDATA[($F{latitud_inicio}+$F{latitud_fin})/2]]></variableExpression>
+	</variable>
+	<variable name="center_longitude" class="java.lang.Double">
+		<variableExpression><![CDATA[($F{longitud_incio}+$F{longitud_fin})/2]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="90" splitType="Stretch">
+			<staticText>
+				<reportElement x="150" y="0" width="500" height="40" uuid="0563f6ef-aec5-4f8a-92f3-0cb54ed6bfc9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE RECORRIDO]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="80" height="79" uuid="3992a211-6225-4cee-b1ec-c9f187cd5400"/>
+				<imageExpression><![CDATA["http://i754.photobucket.com/albums/xx188/hank8617/143979460775544.gif"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="620" y="3" width="80" height="15" uuid="9923a3ef-3e9c-4297-9467-ffeac637c9ed"/>
+				<textElement>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Usuario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="620" y="20" width="80" height="15" uuid="f32ef769-7f4d-4a68-a0a7-abb65e5bd5c8"/>
+				<textElement>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="700" y="3" width="100" height="15" uuid="fad21ad1-65c8-41a7-95ae-d49603fd16be"/>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy hh:mm:ss">
+				<reportElement x="700" y="20" width="100" height="15" uuid="4a74c4e7-f9c6-48f2-982c-67a11677e75c"/>
+				<textFieldExpression><![CDATA[$P{p_fecha}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="80" width="800" height="1" uuid="4ec2b812-f8b8-4503-b4f6-833340520b1c"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="410" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="6" width="130" height="30" backcolor="#82ADCF" uuid="6dec3399-32e2-4dd1-a036-401d721fd4f5"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="36" width="130" height="30" backcolor="#82ADCF" uuid="ef18ca95-62e6-4ab9-9756-5dae37e8e28f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Descripción:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="66" width="130" height="30" backcolor="#82ADCF" uuid="5879f759-764a-4117-96e7-3f358961387f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Tipo de Recorrido:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="96" width="130" height="30" uuid="8c16e317-9668-456d-9eb3-29a20dd86eff"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Lugar de Partida:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="126" width="130" height="30" uuid="8c16e317-9668-456d-9eb3-29a20dd86eff"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Lugar de Llegada:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="6" width="280" height="30" uuid="ac637536-30cf-4761-8236-c4ddb62db86f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_recorrido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="36" width="280" height="30" uuid="0f0fb14d-d9b5-4716-94e1-9d06f7317d78"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_recorrido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="66" width="280" height="30" uuid="0f0fb14d-d9b5-4716-94e1-9d06f7317d78"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo}==0?"Frecuente":"Recreación"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="96" width="280" height="30" uuid="70bb336d-946f-4e29-b348-910d2f8421f4"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lugar_inicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="126" width="280" height="30" uuid="ad8ee844-6cec-497a-b691-78f799c26976"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lugar_fin}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="480" y="15" width="300" height="300" uuid="ea838b77-ae9c-4067-8f02-fc95ce01b3d6">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<c:map xmlns:c="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<c:latitudeExpression><![CDATA[$V{center_latitude}]]></c:latitudeExpression>
+					<c:longitudeExpression><![CDATA[$V{center_longitude}]]></c:longitudeExpression>
+					<c:zoomExpression><![CDATA[11]]></c:zoomExpression>
+					<c:markerData>
+						<dataset/>
+						<c:item>
+							<c:itemProperty name="id" value="inicio_marker_id"/>
+							<c:itemProperty name="label" value="Partida"/>
+							<c:itemProperty name="color" value="red"/>
+							<c:itemProperty name="latitude" value="0">
+								<valueExpression><![CDATA[$F{latitud_inicio}]]></valueExpression>
+							</c:itemProperty>
+							<c:itemProperty name="longitude" value="0">
+								<valueExpression><![CDATA[$F{longitud_incio}]]></valueExpression>
+							</c:itemProperty>
+						</c:item>
+						<c:item>
+							<c:itemProperty name="id" value="fin_marker_id"/>
+							<c:itemProperty name="label" value="Llegada"/>
+							<c:itemProperty name="latitude" value="0">
+								<valueExpression><![CDATA[$F{latitud_fin}]]></valueExpression>
+							</c:itemProperty>
+							<c:itemProperty name="longitude" value="0">
+								<valueExpression><![CDATA[$F{longitud_fin}]]></valueExpression>
+							</c:itemProperty>
+							<c:itemProperty name="color" value="green"/>
+						</c:item>
+					</c:markerData>
+				</c:map>
+			</componentElement>
+			<subreport>
+				<reportElement x="20" y="170" width="200" height="200" uuid="9e0cbd7f-66ed-4912-965e-a1aafd344ebd"/>
+				<subreportParameter name="p_recorrido">
+					<subreportParameterExpression><![CDATA[$P{p_recorrido}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["SureporteRecorrido_Metricas.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="240" y="170" width="200" height="200" uuid="f58ba9a1-324a-4300-b382-dcf4a92c5c77"/>
+				<subreportParameter name="p_recorrido">
+					<subreportParameterExpression><![CDATA[$P{p_recorrido}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["SubreporteRecorrido_Participantes.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>
+[%}
+%]

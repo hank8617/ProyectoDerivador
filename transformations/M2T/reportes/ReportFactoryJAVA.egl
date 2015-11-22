@@ -1,7 +1,7 @@
 [%
-	if(Feature.allInstances().exists(feat | feat.name="ReporteRecorrido") or 
+	if(Feature.allInstances().exists(feat | feat.name="ReporteRutas") or 
 	Feature.allInstances().exists(feat | feat.name="ReporteMetricas") or 
-	Feature.allInstances().exists(feat | feat.name="ReporteHistorico")){%]
+	Feature.allInstances().exists(feat | feat.name="ReporteHistorialViajes")){%]
 package models;
 
 public class ReportFactory {
@@ -16,14 +16,14 @@ public class ReportFactory {
 [%}
 %]
 [%
-	if(Feature.allInstances().exists(feat | feat.name="ReporteHistorico")){%] 
+	if(Feature.allInstances().exists(feat | feat.name="ReporteHistorialViajes")){%] 
 		if(criteria == Reporte.HISTORICO){
 			return new ReporteHistorico();
 		}
 [%}
 %]
 [%
-	if(Feature.allInstances().exists(feat | feat.name="ReporteRecorrido")){%] 
+	if(Feature.allInstances().exists(feat | feat.name="ReporteRutas")){%] 
 		if(criteria == Reporte.RECORRIDO){
 			return new ReporteRecorrido(null);
 		}
@@ -35,7 +35,7 @@ public class ReportFactory {
 	
 	public static Reporte getReportWithParams(int criteria, Long param){
 [%
-	if(Feature.allInstances().exists(feat | feat.name="ReporteRecorrido")){%]
+	if(Feature.allInstances().exists(feat | feat.name="ReporteRutas")){%]
 		if(criteria == Reporte.RECORRIDO){
 			return new ReporteRecorrido(param);
 		}

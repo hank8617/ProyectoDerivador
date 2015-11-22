@@ -1,8 +1,10 @@
 [%
-	if(Feature.allInstances().exists(feat | feat.name="ReporteRecorrido")){%]
+	if(Feature.allInstances().exists(feat | feat.name="ReporteRutas")){%]
 package models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import play.mvc.Controller;
 import controllers.Application;
@@ -10,6 +12,13 @@ import controllers.Application;
 public class ReporteRecorrido extends Reporte{
 	
 	private Long idRecorrido = null;
+	private List<String> subReports;
+
+	public ReporteRecorrido(){
+		subReports = new ArrayList<String>();
+		subReports.add("./app/reports/SureporteRecorrido_Metricas");
+		subReports.add("./app/reports/SubreporteRecorrido_Participantes");
+	}
 	
 	public ReporteRecorrido(Long idRecorrido){
 		this.idRecorrido = idRecorrido;
@@ -43,6 +52,11 @@ public class ReporteRecorrido extends Reporte{
 		
 		this.setFileName("./app/reports/ReporteRecorrido");
 		
+		List<String> subReports = new ArrayList<String>();
+		subReports.add("./app/reports/SubreporteRecorrido_Participantes");
+		subReports.add("./app/reports/SureporteRecorrido_Metricas");
+		this.setSubReports(subReports);
+		
 		User usuario = Application.getLocalUser(Controller.session());
 		
 		this.parameters.put("p_usuario", usuario.id);
@@ -50,7 +64,7 @@ public class ReporteRecorrido extends Reporte{
 		this.parameters.put("p_fecha", new Date());
 		this.parameters.put("p_consulta", generarConsulta());
 	}
-
+	
 	public Long getIdRecorrido() {
 		return idRecorrido;
 	}

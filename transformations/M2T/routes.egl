@@ -15,9 +15,9 @@ POST 	/retos/save 				controllers.ControllerRetos.guardar(nuevoReto: Boolean)
 GET     /retosUsuario	 			controllers.ControllerRetos.listarRetosUsuario()
 
 [%
-	if(Feature.allInstances().exists(feat | feat.name="ReporteRecorrido") or 
+	if(Feature.allInstances().exists(feat | feat.name="ReporteRutas") or 
 	Feature.allInstances().exists(feat | feat.name="ReporteMetricas") or 
-	Feature.allInstances().exists(feat | feat.name="ReporteHistorico")){%]
+	Feature.allInstances().exists(feat | feat.name="ReporteHistorialViajes")){%]
 #Reportes
 GET		/generarReporte				controllers.ControllerReportes.generarReportePDF(criteriaReporte: Integer)
 GET		/generarReporteParam		controllers.ControllerReportes.generarReporteParamPDF(criteriaReporte: Integer, idRecorrido: Long)

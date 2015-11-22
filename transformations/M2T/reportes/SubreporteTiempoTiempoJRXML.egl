@@ -1,0 +1,127 @@
+[%
+	if(Feature.allInstances().exists(feat | feat.name="ReporteHistorialViajes")){%]
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2015-11-21T00:31:09 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubreporteTiempoTiempo" pageWidth="401" pageHeight="231" orientation="Landscape" columnWidth="400" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="bd78906b-eba6-4cba-b7bd-e4ff9c331819">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Escarabajo Adapter"/>
+	<parameter name="p_usuario" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[select mr.fecha,
+       re.id_recorrido,
+       ru.lugar_inicio, 
+       ru.lugar_fin,
+       me.distancia_real,
+       me.distancia_estimada,
+       me.tiempo_real,
+       me.tiempo_estimado,
+       me.velocidad_media,
+       me.clima_temperatura_origen,
+       me.clima_temperatura_destino,
+       u.name,
+       re.nombre
+from ruta ru, 
+     recorrido re,
+     usuario_x_recorrido ur,
+     metricas_x_recorridos mr,
+     users u,
+     (SELECT * FROM CROSSTAB ('select mr.recorrido_id_recorrido,
+       me.nombre_metrica,
+       mr.valor_metrica
+from ruta ru, 
+     recorrido re,
+     metricas_x_recorridos mr,
+     metrica me
+where ru.recorrido_id_recorrido = re.id_recorrido
+      and re.id_recorrido = mr.recorrido_id_recorrido
+      and mr.metrica_id_metrica = me.id_metrica 
+      and mr.usuario_id = ' || $P{p_usuario} || '
+      order by mr.recorrido_id_recorrido, me.id_metrica')
+ AS ct("recorrido_id_recorrido" bigint, "distancia_real" double precision, "tiempo_real" double precision, "velocidad_media" double precision, "distancia_estimada" double precision, "tiempo_estimado" double precision, "clima_temperatura_origen" double precision, "clima_temperatura_destino" double precision, "clima_humedad_origen" double precision, "clima_humedad_destino" double precision, "clima_nubosidad_origen" double precision, "clima_nubosidad_destino" double precision, "clima_viento_origen" double precision, "clima_viento_destino" double precision)) AS me
+where ru.recorrido_id_recorrido = re.id_recorrido
+      and re.id_recorrido = me.recorrido_id_recorrido
+      and re.id_recorrido = ur.recorrido_id_recorrido
+      and re.id_recorrido = mr.recorrido_id_recorrido
+      and mr.usuario_id = $P{p_usuario}
+      and ur.usuario_id = $P{p_usuario}
+      and ur.usuario_id = u.id
+group by mr.fecha,
+       re.id_recorrido,
+       ru.lugar_inicio, 
+       ru.lugar_fin,
+       me.distancia_real,
+       me.distancia_estimada,
+       me.tiempo_real,
+       me.tiempo_estimado,
+       me.velocidad_media,
+       me.clima_temperatura_origen,
+       me.clima_temperatura_destino,
+       u.name,
+       re.nombre]]>
+	</queryString>
+	<field name="fecha" class="java.util.Date"/>
+	<field name="tiempo_real" class="java.lang.Double"/>
+	<variable name="tiempo_acumulada" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{tiempo_real}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="400" height="30" uuid="6f3ec558-c8e2-4cb6-a78d-812b2ab748f7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIEMPO POR RECORRIDO]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="200" splitType="Stretch">
+			<lineChart>
+				<chart evaluationTime="Report">
+					<reportElement x="15" y="0" width="370" height="200" uuid="f9a241ae-c770-4dbc-ab21-a41cc9d93cad"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Tiempo"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{fecha}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{tiempo_real}]]></valueExpression>
+						<labelExpression><![CDATA[" "]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<linePlot>
+					<plot/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</linePlot>
+			</lineChart>
+		</band>
+	</summary>
+</jasperReport>
+[%}
+%]

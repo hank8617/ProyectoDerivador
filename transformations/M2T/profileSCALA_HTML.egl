@@ -112,7 +112,7 @@
 [%}
 %]
 [%
-	if(Feature.allInstances().exists(feat | feat.name="ReporteHistorico")){%] 
+	if(Feature.allInstances().exists(feat | feat.name="ReporteHistorialViajes")){%] 
 		<a class="btn btn-primary" href="@routes.ControllerReportes.generarReportePDF(2)" role="button">Reporte Hist&#243;rico</a>
 [%}
 %]		
