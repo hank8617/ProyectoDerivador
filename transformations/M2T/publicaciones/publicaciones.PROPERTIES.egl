@@ -1,0 +1,16 @@
+                        [%if(Feature.allInstances().exists(feat | feat.name="Twitter")){%]
+                            [%if(Feature.allInstances().exists(feat | feat.name="Facebook")){%]
+                            	value=4
+                        	[%}%]
+                            [%else%]
+                        		value=2    
+                        [%}%]
+                         [%else if(Feature.allInstances().exists(feat | feat.name="Facebook"))%]
+                         	    value=3 
+                         [%}%]
+                         [%else%]
+                        		value=1    
+                        [%}%]
+                         
+                         
+						
