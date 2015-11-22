@@ -11,12 +11,20 @@
 		template.process();
 	}
 	
+	if(Feature.allInstances().exists(feat | feat.name="ConfiguradorBicicletas")){		
+		template := TemplateFactory.load('./configuradorBicicletas/ctrlConfiguradorBicicletas.egl');
+		template.process();
+	}
+	
 	//Archivos de configuración generales a todos los módulos
 	template := TemplateFactory.load('./routes.egl');
 	template.generate(confDir()+"routes");
 	
 	template := TemplateFactory.load('./mainSCALA_HTML.egl');
 	template.generate(viewsDir()+"/main.scala.html");
+	
+	template := TemplateFactory.load('./UserJAVA.egl');
+	template.generate(modelsDir()+"/User.java");
 	
 %]
 

@@ -36,8 +36,7 @@ GET		/detallesRecorridos			controllers.ControllerRecorrido.detallesRecorridos()
 GET		/inscribirARecorrido		controllers.ControllerRecorrido.inscribirARecorrido()
 POST	/guardarMetricas			controllers.ControllerMetricas.guardarMetricas()
 
-[%
-	if(Feature.allInstances().exists(feat | feat.name="SitiosAlquiler")){%]		
+[% if(Feature.allInstances().exists(feat | feat.name="SitiosAlquiler")){%]		
 #Sitios de alquiler
 GET		/sitiosDeAlquiler			controllers.ControllerSitiosDeAlquiler.listarSitiosDeAlquiler()
 GET 	/estaciones/:idSitio	 	controllers.ControllerSitiosDeAlquiler.detailsEstacion(idSitio: Long)
@@ -47,8 +46,14 @@ GET 	/sitiosDeAlquiler/ 		    controllers.ControllerSitiosDeAlquiler.newSitio()
 GET 	/estaciones/	 		    controllers.ControllerSitiosDeAlquiler.newEstacion()
 POST 	/estaciones/save			controllers.ControllerSitiosDeAlquiler.guardarEstacion(nuevaEstacion: Boolean)
 DELETE  /estaciones/:id 			controllers.ControllerSitiosDeAlquiler.eliminarEstacion(id: Long)		
-	[%}
-%]
+[% } %]
+
+[% if(Feature.allInstances().exists(feat | feat.name="ConfiguradorBicicletas")){%]
+#Configurador de bicicletas
+GET     /configurador                        controllers.ConfiguradorController.index()
+GET    /configurador/verResultados	   		   	controllers.ConfiguradorController.verResultados()
+[% } %]
+
 GET     /restricted                 controllers.Application.restricted
 GET     /assets/javascript/routes.js    controllers.Application.jsRoutes
 

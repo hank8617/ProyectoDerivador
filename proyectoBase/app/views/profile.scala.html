@@ -1,0 +1,110 @@
+@(localUser: models.User = null)
+
+@import com.feth.play.module.pa.views.html._
+
+@import play.api.libs.json.Json
+
+@main(Messages("playauthenticate.profile.title"),"profile") {
+<div class="container">
+	<div class = "title">
+    <h1>@Messages("playauthenticate.profile.title")</h1>
+    <p>
+    </div>
+    
+    <div class = "conten">
+    <h2>Hola  @localUser.name es un gusto tenerte de nuevo por aqu&iacute;</h2>
+    </div>
+    
+    <div class="row">
+    <div class = "col-xs-6 col-md-4" id= "im_jug1">				
+	 </div>
+    
+    <div class = "col-xs-9 col-md-8">
+    <h2> Datos personales</h2>
+    <h5>Nombre completo : @localUser.name</h5>
+    <h5>Id usuario de red social :@localUser.getulr</h5>
+    <h5>Correo electronico : @if(!localUser.email) {<em>&lt;unknown&gt;</em>.} else {@localUser.email.}</h5>
+    
+    <h5>Estado de la cuenta: @if(!localUser.emailValidated && localUser.email) {
+	      (<a href="@routes.Account.verifyEmail">unverified - click to verify</a>)
+	    } else {	      (verified)
+	    }</h5>
+	<h5>    Proveedores asociados con esta cuenta : @defining(localUser.getProviders()) { providers =>
+        @if(providers.size() > 0) {
+        @if(providers.size() ==1) {
+            
+        } else {
+            
+        }
+        @for(p <- providers) {
+            @_providerIcon(p)
+        }
+         }
+    }</h5>
+    
+    <h5> 
+	
+    @currentAuth() { auth =>
+    
+    
+    <script>
+    
+	    var jsArray = [ @localUser.getulr.mkString(",") ];  	    
+	    var a =0 ;
+	    for (index = 0; index < jsArray.length; ++index) {
+	    	if(jsArray[index].toString().length>14)
+	    		{
+	    		a = 1 ;  
+	    		var item = index;
+	    		}
+	    	else
+	    		{
+	    		
+	    		}
+	    
+	    }
+	    console.log(a)
+	    if(a==1)
+	    	{
+	    	
+	    	console.log("con foto de fb")
+            document.getElementById("im_jug1").innerHTML="<img src='http://graph.facebook.com/"+jsArray[item]+"/picture?type=large'></img>";
+
+
+
+
+	    	}
+	    else{
+	    	console.log("sin foto")
+	    	document.getElementById("im_jug1").innerHTML="<img src='http://i844.photobucket.com/albums/ab7/MARTIN3280/c2797649-a5bc-457d-9cb4-9c840c80eb37_zpswugxyyas.jpg' ></img>";
+	    }
+	    	
+
+	    </script>
+    
+    	
+    
+        @Messages("playauthenticate.profile.logged") @_providerIcon(auth.getProvider())<br/>
+        @if(auth.expires() != -1){
+          @Messages("playauthenticate.profile.session", auth.getId(), Application.formatTimestamp(auth.expires()))
+        } else {
+            @Messages("playauthenticate.profile.session_endless", auth.getId())
+        }
+    
+    }
+    
+       </p>
+    </h5>
+
+         </div>
+         </div>
+		 <div class="row">
+		 <div class = "col-xs-12">
+			<a href="@routes.Account.changePassword">@Messages("playauthenticate.profile.password_change")</a></li>
+		
+		</div>
+		</div>
+		
+	
+</div>
+}

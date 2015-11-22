@@ -1,0 +1,68 @@
+@(recomForm: ControllerRecompensas.FormularioRecompensa,
+	nuevaRecompensa : Boolean)
+@import helper._
+
+@main("Formulario recompensa") {
+ <div class="container">
+	<h1></h1>
+	@helper.form(action = routes.ControllerRecompensas.guardar(nuevaRecompensa)) {
+	<fieldset style="padding-left: 1cm;">
+		@if(nuevaRecompensa){
+		<legend>Recompensa: Nueva recompensa</legend>		
+		}else{
+		<legend>Reto: @recomForm.recompensa</legend>
+		}		
+		<input name="id" id="id" type="hidden" value="@recomForm.id"/>
+		<table class="table">		
+			<tr>
+				<td width="20%">Recompensa:</td>
+				<td width="20%"><input placeholder="Balon de futbol" class="form-control" name="recompensa" id="idRecompensa" value="@recomForm.recompensa"/></td>
+				<td width="60%"><em>Agregue un nombre para la recompensa a entregar. <br>Por ejemplo: "Balon de futbol"</em></td>
+			</tr>
+			<tr>
+				<td>Puntaje requerido:</td>
+				<td><input placeholder="500" class="form-control"  name="puntajeRequerido" id="idPuntajeRequerido" value="@recomForm.puntajeRequerido"/></td>
+				<td><em>Agregue el valor del puntaje que debe acumular un usuario en retos, para reclamar esta recompensa.<br>Por ejemplo: 500</em></td>
+			</tr>
+			<tr>
+				<td>Telefono de contacto:</td>
+				<td><input placeholder="6676688" class="form-control"  name="telefonoContacto" id="idTelefonoContacto" value="@recomForm.telefonoContacto"/></td>
+				<td><em>Agregue un telefono para que el usuario se contacte y reclame su recompensa. <br> Por ejemplo: 6676688</em></td>
+			</tr>
+			<tr>
+				<td>Celular de contacto:</td>
+				<td><input placeholder="3102563265"  class="form-control"  name="celularContacto" id="idCelularContacto" value="@recomForm.celularContacto"/></td>
+				<td><em>Agregue un celular para que el usuario se contacte y reclame su recompensa. <br> Por ejemplo: 3102563265</em></td>
+			</tr>
+			@if(nuevaRecompensa){
+			<tr>
+				<td>Fecha límite para obtener:</td>
+				<td><input placeholder="2015-10-24" class="form-control"  name="fechaLimite" id="idFechaLimite" type="date" value="@recomForm.fechaLimite"/></td>
+				<td><em>Agregue una fecha limite para reclamar la recompensa, despues de esta fecha no se podra reclamar la recompensa, Por ejemplo: 2015-10-24</em></td>
+			</tr>	
+			}else{
+			<tr>
+				<td>Fecha límite para obtener:</td>
+				<td><input placeholder="2015-10-24" class="form-control"  name="fechaLimite" id="idFechaLimite" type="date" value="@recomForm.fechaLimite.format("yyyy-MM-dd")"/></td>
+				<td><em>Agregue una fecha limite para reclamar la recompensa, despues de esta fecha no se podra reclamar la recompensa, Por ejemplo: 2015-10-24</em></td>
+			</tr>
+			}		
+			<tr>
+				<td>Estado:</td>
+				<td>
+				<select class="form-control"  name="estado">
+				@for(estadoRecompensa <- models.EstadoRecompensa.values()){
+			        <option value="@estadoRecompensa.getEstado()" @if(!nuevaRecompensa && recomForm.estado.equals(estadoRecompensa.getEstado())){selected} >@estadoRecompensa.getEstado()</option>
+			     }
+			     </select>
+			     </td>
+				<td><em>Agregue el estado de disponibilidad para esta recompensa, los valores posibles son "activo" o "inactivo"</em></td>
+			</tr>		
+		</table>
+	</fieldset>
+	<br/>
+	<input type="submit" class="btn btn-primary" value="Guardar" style="margin-left: 1cm;">
+	<a class="btn" href="@routes.ControllerRecompensas.listarRecompensas()">Cancelar</a>
+	}
+	</div>
+}

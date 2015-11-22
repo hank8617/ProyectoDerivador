@@ -1,0 +1,67 @@
+@(lstRecompensa:List[models.Recompensa]) 
+	
+@import helper._
+
+@main("recompensasConsulta") {
+
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+<script>
+	function del(urlToDelete) {
+		$.ajax({
+			url: urlToDelete,
+			type: 'DELETE',
+			success: function(results) {
+			// Refresh the page
+			location.reload();
+			}
+		});
+	}
+</script>
+
+<div class="wrapper row3">
+  <main class="container clear"> 
+    <div class="content"> 
+         
+		<h2>Recompensas</h2>
+		<br>
+			<table class="table">
+			    <thead>
+			        <tr>
+			        	<th>Recompensa</th>
+						<th>Puntaje requerido</th>
+			            <th>Telefono de contacto</th>
+			            <th>Celular de contacto</th>
+			            <th>Fecha límite para obtener</th>
+			            <th>Estado</th>
+						<th></th>				            
+			        </tr>
+			    </thead>
+			    <tbody>
+			        @lstRecompensa.map { recom =>
+			        <tr>			        	
+						<td>@recom.recompensa</td>
+						<td>@recom.puntajeRequerido</td>
+						<td>@recom.telefonoContacto</td>
+						<td>@recom.celularContacto</td>
+						<td>@recom.fechaLimite.format("yyyy-MM-dd")</td>
+						<td>@recom.estado</td>
+			            <td>
+							<a onclick="del('@routes.ControllerRecompensas.eliminarRecompensa(recom.id)')">Eliminar</a>
+							<a href="@routes.ControllerRecompensas.details(recom.id)">Editar</a>
+						</td>
+			        </tr>
+			        }
+			    </tbody>
+			</table>
+				
+		
+	</div>
+	<br>
+	<form action="@routes.ControllerRecompensas.agregarRecompensa()">
+	    <input type="submit" class="btn btn-primary btn-block" value="Añadir recompensa">
+	</form>
+  </main>
+</div>
+
+}

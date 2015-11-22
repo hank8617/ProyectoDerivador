@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style type="text/css">
+        body
+        {
+            font-family: Arial;
+            font-size: 10pt;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=es"></script>
+    <script type="text/javascript" src="Escarabajo_Recorridos.js"></script>
+	<script type="text/javascript" src="Escarabajo_Clima.js"></script>
+    <div class="table-responsive">
+		<table border="0" cellpadding="0" cellspacing="3" class="table">
+			<tr>
+				<td colspan="4">
+					Origen:
+					<input type="text" id="txtSource" value="Kennedy, Bogota, Colombia"  />
+					&nbsp; Destino:
+					<input type="text" id="txtDestination" value="Usaquen, Bogota, Colombia" style="wi1dth: 200px" />
+					<br />
+					<input type="button" value="Calcular Ruta" onclick="GetRoute()" />
+					<input type="button" value="Iniciar Recorrido" onclick="StartRoute()" />
+					<input type="button" value="Finalizar Recorrido" onclick="EndRoute()" />
+					<hr />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<div id="dvDistance">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					<div id="dvWeatherSource">
+					</div>
+				</td>
+				<td colspan="1">
+					<div id="dvWeatherDestination">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div id="dvMap" style="width: 500px; height: 500px">
+					</div>
+				</td>
+				<td colspan="2">
+					<div id="dvPanel" style="width: 500px; height: 500px">
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+    <br />
+</body>
+</html>

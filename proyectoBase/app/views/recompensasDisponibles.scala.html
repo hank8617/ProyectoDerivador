@@ -1,0 +1,56 @@
+@(lstRecompensa:List[models.Recompensa],
+	puntaje: Long) 
+	
+@import helper._
+
+@main("recompensasConsulta") {
+
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+
+<div class="wrapper row3">
+  <main class="container clear"> 
+    <div class="content"> 
+         
+		<h2>Recompensas disponibles</h2>
+		<br>
+		<table>
+			<tr>
+				<td>Puntaje disponible:</td>
+				<td>@puntaje</td>
+			</tr>
+		</table>
+		<br/>
+			<table class="table">
+			    <thead>
+			        <tr>
+			        	<th>Recompensa</th>
+						<th>Puntaje requerido</th>
+			            <th>Telefono de contacto</th>
+			            <th>Celular de contacto</th>
+			            <th>Fecha límite para obtener</th>
+						<th></th>				            
+			        </tr>
+			    </thead>
+			    <tbody>
+			        @lstRecompensa.map { recom =>
+			        <tr>			        	
+						<td>@recom.recompensa</td>
+						<td>@recom.puntajeRequerido</td>
+						<td>@recom.telefonoContacto</td>
+						<td>@recom.celularContacto</td>
+						<td>@recom.fechaLimite.format("yyyy-MM-dd")</td>
+			            <td>
+							<a href="@routes.ControllerRecompensas.guardarRecompensaUsuario(recom.id)">Reclamar</a>
+						</td>
+			        </tr>
+			        }
+			    </tbody>
+			</table>
+				
+		
+	</div>
+  </main>
+</div>
+
+}

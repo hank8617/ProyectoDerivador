@@ -1,0 +1,19 @@
+[%import "../../../libraries/utils.eol";%]
+
+[% 
+
+	//Sitios de alquiler
+	var template : Template;
+	template := TemplateFactory.load('./configuradorBicicletas/ConfiguradorControllerJAVA.egl');
+	template.generate(controllersDir()+'ConfiguradorController.java');
+	
+	template := TemplateFactory.load('./configuradorBicicletas/indexConfiguradorSCALA_HTML.egl');
+	template.generate(viewsDir()+'indexConfigurador.scala.html');
+	
+	template := TemplateFactory.load('./configuradorBicicletas/resumenConfiguradorSCALA_HTML.egl');
+	template.generate(viewsDir()+'resumenConfigurador.scala.html');
+	
+	template := TemplateFactory.load('./configuradorBicicletas/modelXML.egl');
+	template.generate(confDir()+'model.xml');
+	
+%]

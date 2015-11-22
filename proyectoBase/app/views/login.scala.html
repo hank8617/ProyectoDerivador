@@ -1,0 +1,60 @@
+@(loginForm: Form[_])
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapBasic.f) }
+@import com.feth.play.module.pa.views.html._
+
+@main(Messages("playauthenticate.login.title"),"login") {
+<div class="container">
+  <div class="row">
+    <div class="col-xs-6 col-sm-4 col-md-8">
+      <h1>@Messages("playauthenticate.login.title")</h1>
+    </div>
+  </div>
+
+  <div id="login" class="row" >
+
+    <div class="col-xs-offset-1 col-xs-10 col-sm-6 col-sm-offset-2  col-md-6">
+      @* Display proprietary login form *@
+    	@helper.form(routes.Application.doLogin, 'class -> "form-horizontal", 'role -> "form") {
+
+        @if(loginForm.hasGlobalErrors) {
+          	<p class="alert alert-danger">
+	          @loginForm.globalError.message
+	     	</p>
+        }
+
+        @_emailPartial(loginForm)
+
+		<div class="row">
+			<div class="col-md-8">
+		        @inputPassword(
+		          loginForm("password"),
+		          '_showConstraints -> false,
+		          '_label -> Messages("playauthenticate.login.password.placeholder")
+		        )
+		</div>
+		</div>
+            <button type="submit" class="btn btn-primary">@Messages("playauthenticate.login.now")</button>
+
+        <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("playauthenticate.login.forgot.password")</a>
+
+    	}
+    </div>
+
+   <div class="col-xs-12 col-sm-4 col-md-4">
+   <br>
+      @Messages("playauthenticate.login.oauth")
+      @* Display list of available providers *@
+      @_providerPartial(skipCurrent=false)
+      @providerAvailable("basic") { available: Boolean =>
+          @if(available) {
+              <br>
+              <a href="@com.feth.play.module.pa.controllers.routes.Authenticate.authenticate("basic")">@Messages("playauthenticate.login.basic")</a>
+          }
+      }
+    </div>
+  </div>
+</div>
+}
+

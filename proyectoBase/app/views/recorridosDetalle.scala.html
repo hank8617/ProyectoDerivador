@@ -1,0 +1,195 @@
+@(formRecorrido: ControllerRecorrido.FormularioRecorrido, 
+  existeUsuario: Boolean) 
+	
+@import helper._
+
+
+
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+<script>
+	
+	function asignaInscripcion(idRecorridoSeleccionado)
+	{
+		$.ajaxSetup({ cache: false });
+		$("#idRecorridoSeleccionado").val(idRecorridoSeleccionado);
+		$("#btnInscribir").hide();
+		$("#btnRetirar").hide();
+		$.get( "inscribirARecorrido?idRecorrido=" + idRecorridoSeleccionado, function( data ) {
+			  $( "#resultInscripcion" ).html( data );
+			  	
+			});
+		//document.forms[routes.ControllerRecorrido.detallesRecorridos()].submit();
+	}
+
+</script>
+
+<script type="text/javascript">
+
+	var directionsDisplay;
+	
+	function initMap() {
+		
+		
+		directionsDisplay = new google.maps.DirectionsRenderer;
+		var map = new google.maps.Map(document.getElementById('map_canvas'), {
+			zoom: 12,
+			center: {lat: 4.60971, lng: -74.08175}
+		});
+		directionsDisplay.setMap(map);
+		
+		addressLat = document.getElementById("hddAddressLat").value;
+		addressLong = document.getElementById("hddAddressLong").value;
+		addressEndLat = document.getElementById("hddAddressEndLat").value;
+		addressEndLong = document.getElementById("hddAddressEndLong").value;
+		
+		initialize(parseFloat(addressLat), parseFloat(addressLong), parseFloat(addressEndLat), parseFloat(addressEndLong));
+	}
+
+	var geoCoderStart;
+	var geoCoderEnd;
+	
+	function initialize(addressLat, addressLong, addressEndLat, addressEndLong){
+		var p1 = new google.maps.LatLng(addressLat, addressLong);
+		var p2 = new google.maps.LatLng(addressEndLat, addressEndLong);
+		
+		//encontrar ruta
+		var directionsService = new google.maps.DirectionsService;
+		directionsService.route({
+			origin: {lat: addressLat, lng: addressLong},
+			destination: {lat: addressEndLat, lng: addressEndLong},
+			travelMode: google.maps.TravelMode.DRIVING
+		}, function(response, status) {
+			if (status == google.maps.DirectionsStatus.OK) {
+				directionsDisplay.setDirections(response);
+		} else {
+		  window.alert('Directions request failed due to ' + status);
+		}
+		});	
+		
+	}
+	
+</script>
+
+<style type="text/css">
+  html { height: 100% }
+  body { height: 100%; margin: 0px; padding: 0px;}
+  
+  #map_canvas {
+      width:529px; 
+      height:400px;
+  }
+  .box{
+      width:553px; 
+      height:423px;
+      border:1px solid #ccc;
+      padding:10px;
+      box-shadow: 1px 1px 3px #ccc;
+      background:#e5eCf9;
+  }
+  .search input[type=text]{
+      float:left;
+      width:460px;
+      padding:8px;
+      border:1px solid #4B8EFA;
+  }
+  .search input[type=button]{
+      margin-top: 7px;
+      float:right;
+      background-color:#4B8EFA;
+      border:0;
+      display:block;
+      color:white;
+      padding:8px;
+      cursor: pointer;
+  }
+  h1{
+      text-align: center;
+      font-family: cursive;
+      margin-top:15px;
+      font-size: 45px;
+  }
+  h2{
+      margin-top:15px;
+  }
+</style>
+
+         
+<h2>Detalle recorrido</h2>
+<br>
+<div id="divDetallesRecorrido" style="border: solid 1px #CCCCCC; padding: 20px">
+	
+	<div id="resultInscripcion">
+		
+	</div>
+	
+	<div style="padding: 20px;">
+		<h2>@formRecorrido.nombre</h2>
+	</div>
+	@form(routes.ControllerRecorrido.inscribirARecorrido()) {
+	
+		@if(formRecorrido.tipoRecorrido == "0") {
+			<div style="padding: 10px 20px 10px 20px;">
+				<div style="background-image:url('/assets/images/frecuente.jpg'); width:103px; height:103px; float: left;"></div>	
+				<div style="padding:40px 10px 0 10px; float: left; height:103px;">
+					Este es un recorrido <b>Frecuente</b>, se realiza los dias:
+				
+					@for(dia <- formRecorrido.diaFrecuente) {
+						@dia,
+					} 
+				
+					la hora de salida es <b>@formRecorrido.horaFrecuente</b>. La ruta es la siguiente:	
+				
+				</div>
+			</div>
+			
+		} else {
+			<div style="padding: 10px 20px 10px 20px; height:103px;">
+				<div style="background-image:url('/assets/images/recreacion.jpg'); width:103px; height:103px; float: left;"></div>	
+				<div style="padding:40px 10px 0 10px; float: left; height:103px;">
+					Este es un recorrido de <b>Recreacion</b>, se realizara del dia @formRecorrido.fechaInicioRuta hasta el dia @formRecorrido.fechaFinRuta, <br>la hora de salida es @formRecorrido.horaFrecuente. 
+					La ruta es la siguiente:	
+				
+				</div>
+			</div>
+		}
+		<br>
+		
+		<div style="margin:auto" id="map_canvas"></div>
+		
+		<br>
+		<div style="padding: 10px 20px 10px 20px;">Tenga en cuenta: <br> @formRecorrido.descripcion</div>
+		<div style="padding: 10px 20px 10px 20px;">
+			Los participantes de este recorrido son:
+			<ul>
+			@for(participante <- formRecorrido.lstAmigos) {
+			  <li>@participante</li>
+			} 
+			</ul>
+		</div>
+		<div style="padding: 10px 20px 10px 20px; text-align: right;">
+			@if(existeUsuario) {
+				<button id="btnInscribir" class="btn" onclick="asignaInscripcion('@formRecorrido.idRecorrido'); return false;">Retirarme del recorrido</button>
+			}else{
+				<button id="btnRetirar" class="btn" onclick="asignaInscripcion('@formRecorrido.idRecorrido'); return false;">Unirme al recorrido</button>
+			}
+		</div>
+		<input name="hddAddressLat" id="hddAddressLat" type="hidden" value=@formRecorrido.latitudInicio/>
+		<input name="hddAddressLong" id="hddAddressLong" type="hidden" value=@formRecorrido.longitudInicio/>
+		<input name="hddAddressEndLat" id="hddAddressEndLat" type="hidden" value=@formRecorrido.latitudFin/>
+		<input name="hddAddressEndLong" id="hddAddressEndLong" type="hidden" value=@formRecorrido.longitudFin/>
+		<!--  <input name="idRecorrido" id="idRecorrido" type="hidden" value=@formRecorrido.idRecorrido/>-->
+		
+		<div>
+			<a class="btn btn-default" href="@routes.ControllerMetricas.iniciarRecorridoWeb(formRecorrido.idRecorrido)" role="button">Iniciar Recorrido</a>
+		</div>
+	}
+	
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUtmM5eDzCCjpbXs9OrzCvKgHoflR-oVk&signed_in=true&callback=initMap"
+		async defer>
+	</script>
+		
+</div>
+	
+
+

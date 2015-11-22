@@ -1,0 +1,47 @@
+@(message: String, localUser: models.User = null)(content: Html)(content1: Html)
+
+@import helper._
+
+
+@main("chat") {
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.15/angular.min.js"></script>
+        <script src="@routes.Assets.at("javascripts/app.js")"></script>
+        <script src="@routes.Assets.at("javascripts/services.js")"></script>
+        <script src="@routes.Assets.at("javascripts/controllers.js")"></script>
+    <body ng-app="sseChat">
+    <div align = "center"><h1>@message</h1></div>
+      <div class="container"> 
+        <div ng-controller="ChatCtrl">
+            <div id="header">
+            <dl>
+  			<dt><label for="nombreUsuario">Nombre Completo: @localUser.name</label></dt>
+  			<dt><label for="chatUsetname">Escriba un Chat Username </label><input class="form-control" type="text" name="user" id="userField" value="John Doe" ng-model="user" > </dt>
+  			</dl>
+  			<label for="rooms">Sala de Chat Seleccionada</label>
+                <select class="form-control" ng-model="currentRoom" ng-change="setCurrentRoom(currentRoom)" 
+                  ng-options="r.name for r in rooms" id="roomSelect"></select>
+            </div>
+
+            <div id="chat">
+                <div class="{{msg.who}} msg" ng-repeat="msg in msgs | limitTo:-4"
+                ng-class="msg.user === 'Juliet' ? 'juliet' : msg.user !== user ? 'others' : ''">{{msg.time}}<br/>
+                    <strong>{{msg.user}} says: </strong>{{msg.text}}<br/>
+                </div>
+            </div>
+
+            <div id="footer">
+                <form ng-submit="submitMsg()">
+                    <input class="form-control" type="text" name="chat" id="textField" ng-model="inputText"
+                     placeholder="Say something" class="ng-pristine ng-valid input-block-level" />
+                    <input type="button" class="btn btn-primary" id="saySomething" value="Submit" ng-click="submitMsg()" />
+                </form>
+            </div>
+            
+        </div>
+ 	</div>
+    </body>
+    @content
+    @content1
+    
+    }

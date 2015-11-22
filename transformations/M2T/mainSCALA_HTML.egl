@@ -72,7 +72,9 @@
                         <li class="@("active".when(nav == "profile"))"><a href="@routes.ControllerSitiosDeAlquiler.listarSitiosDeAlquiler()">Sitios de alquiler</a></li>
                         [%}%]
                         <li class="@("active".when(nav == "profile"))"><a href="@routes.ControllerSitiosDeInteres.listarSitiosDeInteres()">Sitios de interes</a></li>
+						[%if(Feature.allInstances().exists(feat | feat.name="ConfiguradorBicicletas")){%]
 						<li class="@("active".when(nav == "profile"))"><a href="@routes.ConfiguradorController.index()">MiBici</a></li>
+                        [%}%]
                         }                       					
 
 						@subjectNotPresent() {

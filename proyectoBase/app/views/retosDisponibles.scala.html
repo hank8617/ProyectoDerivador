@@ -1,0 +1,51 @@
+@(lstReto:List[models.Reto]) 
+	
+@import helper._
+
+@main("retosConsulta") {
+
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+<div class="wrapper row3">
+  <main class="container clear"> 
+    <div class="content"> 
+         
+		<h2>Retos</h2>
+		<br>
+			<table class="table">
+			    <thead>
+			        <tr>
+			        	<th>Nombre</th>
+						<th>Fecha Inicial</th>
+			            <th>Fecha Final</th>
+			            <th>Metrica</th>
+			            <th>Unidades</th>
+			            <th>Funcion</th>
+						<th>Operador</th>
+						<th>Valor condición</th>
+						<th>Puntaje</th>		            
+			        </tr>
+			    </thead>
+			    <tbody>
+			        @lstReto.map { reto =>
+			        <tr>			        	
+						<td>@reto.nombre</td>
+			            <td>@reto.fechaIni.format("yyyy-MM-dd")</td>
+			            <td>@reto.fechaFin.format("yyyy-MM-dd")</td>
+			            <td>@reto.metrica.getNombreMetrica()</td>
+			            <td>@reto.metrica.getUnidadMedida()</td>
+			            <td>@reto.funcion</td>			            
+			            <td>@reto.operador</td>
+			            <td>@reto.valorCondicion</td>
+			            <td>@reto.puntaje</td>
+			        </tr>
+			        }
+			    </tbody>
+			</table>
+				
+		
+	</div>
+  </main>
+</div>
+
+}

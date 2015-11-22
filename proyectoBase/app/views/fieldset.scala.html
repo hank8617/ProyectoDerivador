@@ -1,0 +1,155 @@
+@(formRecorrido: Form[ControllerRecorrido.FormularioRecorrido], 
+	tipoRecorrido:List[String],  
+	diaFrecuente:Map[String,Boolean], 
+	horaFrecuente:Map[String,Boolean],
+	lstAmigos:Map[String,Boolean])
+
+@import views.html.bootstrap3._
+
+<script type="text/javascript">
+	
+		
+		$(document).ready(function(){		
+		
+		$('#Recreacion').change(function (){
+			if( $(this).is(":checked") ){ 
+            	$('#divDiaFrec').hide();
+				$('#divFechaInicio').show();
+				$('#divFechaFin').show();
+        	}
+        });
+		
+		$('#Frecuente').change(function (){
+			if( $(this).is(":checked") ){ 
+            	$('#divDiaFrec').show();
+				$('#divFechaInicio').hide();
+				$('#divFechaFin').hide();
+        	}
+		}); 
+		
+		activarFrecuente();
+	});
+	
+	function activarFrecuente() {
+		$("[name=tipoRecorrido]").val(["Frecuente"]);	
+	    	$('#divDiaFrec').show();
+			$('#divFechaInicio').hide();
+			$('#divFechaFin').hide();  	
+	}
+	
+</script>
+
+  <!-- Header -->
+	<div style ="padding: 10px 0 5px 0">
+	@radiobuttons(formRecorrido("tipoRecorrido"),
+		label = "Tipo Recorrido:",
+		buttonNameList = tipoRecorrido)
+	</div>			
+	<br>
+	<div style ="padding: 10px 0 5px 0">
+	@text(formRecorrido("nombre"),
+		label = "Nombre:",
+        placeholder = "Nombre")
+	</div>
+	<br>
+	<div id="divDiaFrec" style ="padding-top: 10px">	
+		@checkboxes(formRecorrido("diaFrecuente"),
+		label = "Dias recorrido:",
+		checkboxMap = diaFrecuente)
+		<br>
+	</div>
+	<div id="divHoraFrec" style ="padding: 10px 0 5px 0">
+	  @select(formRecorrido("horaFrecuente"),
+	  	  label = "Hora salida",
+          optionMap = horaFrecuente,
+          isMultiple = false,
+          classCustom = "col-sm-2")
+	</div>
+	<br>
+	<div id="divFechaInicio" class="form-group" style ="padding: 10px 0 5px 0;">
+	    <label class="col-sm-2 control-label">Fecha salida</label>
+	    <div class="col-sm-2">
+	      <input type="date" 
+	             class="form-control" 
+	    		 name= "fechaInicioRuta" />
+	    </div>
+  	</div>
+	<br>
+	<div id="divFechaFin" class="form-group" style ="padding: 10px 0 5px 0">
+	    <label class="col-sm-2 control-label">Fecha regreso</label>
+	    <div class="col-sm-2">
+	      <input type="date" 
+	             class="form-control" 
+	    		 name= "fechaFinRuta" />
+	    </div>
+  	</div>
+	<br>
+	<hr>
+	<h2>Selecciona la ruta</h2>
+	<div style ="padding: 10px 0 10px 0">
+		@text(formRecorrido("lugarInicio"),
+			label = "Lugar salida:",
+	        placeholder = "Salida",
+	        id = "address")
+	</div>
+	<div style ="padding: 10px 0 10px 0;">
+		@text(formRecorrido("lugarFin"),
+			label = "Lugar llegada:",
+			placeholder = "Llegada",
+			id = "addressEnd")
+	</div>
+	<div style ="width:100%; padding: 10px 0 10px 0; text-align: right;">
+		<input id="search" type="button" value ="Search" class="btn btn-primary"/>
+	</div>	
+	<br>
+	<div>
+		<div style="margin:auto" id="map_canvas"></div>
+	</div>
+	<hr>
+	<h2>Invita a tus amigos</h2>
+	<div style ="padding: 10px 0 10px 0; height: 80px">
+		@select(formRecorrido("lstAmigos"),
+          label = "Tus amigos",
+          optionMap = lstAmigos,
+          isMultiple = true,
+          classCustom = "col-sm-10")  
+	</div>
+	<br>          
+	<hr>
+	<br>
+	<div style ="padding: 10px 0 10px 0;">
+		@textarea(formRecorrido("descripcion"),
+			label = "Descripcion recorrido:",
+        	placeholder = "Descripcion",
+          	help = "Ingrese las recomendaciones necesarias para el recorrido.")
+	</div>	
+	<br>	
+	<div style="text-align:right">
+		<button id="submit" type="submit" value="Submit" class="btn btn-primary">Aceptar</button>
+		<button id="cancel" class="btn cancel">Cancelar</button>
+	</div>
+	<div style="display:none">
+		@helper.inputText(
+	    	formRecorrido("latitudInicio"),
+	    	'_label -> "",
+	    	'style -> "display: none"
+		)
+		
+		@helper.inputText(
+	    	formRecorrido("longitudInicio"),
+	    	'_label -> "",
+	    	'style -> "display: none"
+		)
+		
+		@helper.inputText(
+	    	formRecorrido("latitudFin"),
+	    	'_label -> "",
+	    	'style -> "display: none"
+		)
+		
+		@helper.inputText(
+	    	formRecorrido("longitudFin"),
+	    	'_label -> "",
+	    	'style -> "display: none"
+		)
+	</div>

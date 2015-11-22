@@ -1,0 +1,71 @@
+@(	formConsultaRecorrido: Form[ControllerRecorrido.FormularioConsultaRecorrido],
+	lstRecorrido:List[models.Recorrido]) 
+	
+@import helper._
+
+@main("recorridosConsulta") {
+
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+<script>
+	
+	function asignaId(idRecorrido)
+	{
+		$.ajaxSetup({ cache: false });
+		document.getElementById("idRecorrido").value = idRecorrido;
+		$.get( "detallesRecorridos?idRecorrido=" + idRecorrido, function( data ) {
+			  $( "#result" ).html( data );
+			  //alert( "Load was performed." );
+			});
+		//document.forms[routes.ControllerRecorrido.detallesRecorridos()].submit();
+	}
+
+</script>
+
+<div class="wrapper row3">
+  <main class="container clear"> 
+    <div class="content"> 
+         
+		<h2>Consultar recorridos</h2>
+		<br>
+		@form(routes.ControllerRecorrido.detallesRecorridos()) {
+			<table class="table">
+			    <thead>
+			        <tr>
+			        	<th>Tipo</th>
+						<th>Nombre</th>
+			            <th>Lugar Inicio</th>
+			            <th>Lugar Fin</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+			        @lstRecorrido.map { rec =>
+			        <tr>
+						<td>@if(rec.getTipo() == 0){
+								Frecuente
+							}else{
+								Recreacion
+							}
+						</td>
+			            <td>@rec.getNombre()</td>
+			            @rec.getLstRuta().map { rut =>
+			            	<td>@rut.getLugarInicio()</td>
+			            	<td>@rut.getLugarFin()</td>
+			            <td><button id="verDetalles" class="btn" onclick="asignaId('@rec.getIdRecorrido()'); return false;">Detalles</button></td>
+			            }
+			        </tr>
+			        }
+			    </tbody>
+			</table>
+			<input name="idRecorrido" id="idRecorrido" type="hidden" value="0"/>
+		}		
+		
+	</div>
+	<div id="result">
+		
+	</div>	
+	<br>
+  </main>
+</div>
+
+}

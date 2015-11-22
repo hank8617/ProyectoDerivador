@@ -32,8 +32,7 @@ operation stringSinEspacios(a : String) : String{
 	return concatenado;	
 }
 
-
-//Creaci�n de directorios
+//Creación de directorios
 operation projectName() : String{
 	return "escarabajo/";
 }
@@ -82,10 +81,6 @@ operation packageToDir(package : String) : String {
 operation addCharExtension() {
 	return ".cs";
 }
-
-
-
-
 
 /** Convierte una string en camel case a notación de base de datos
 	Ej: tipoDocumento se transforma a TIPO_DOCUMENTO

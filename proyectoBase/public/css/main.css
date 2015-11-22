@@ -1,0 +1,121 @@
+body {
+    padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+}
+
+form .error input {
+    background-color: #F2DEDE;
+    border-color: #EED3D7;
+    color: #B94A48;
+}
+
+form .error .help-inline {
+    color: #B94A48;
+}
+
+.providers {
+    margin: 5px 0;
+    list-style: none;
+}
+
+.providers li {
+    display: inline;
+}
+
+.help-block {
+    font-size: 10px;
+    color: #ccc !important;
+}
+
+h1 {
+    margin-bottom: 20px !important;
+}
+
+/*Arreglo en vista de merge accounts*/
+span.form-control {
+	display: flex;
+	height: auto;
+}
+
+
+.title{
+	text-align : center;
+	
+	
+}
+
+.conten{
+	
+	text-align: center;
+}
+
+/*ESTILOS DEL CHAT*/
+#chat {
+  min-height: 200px;
+  right: 10px;
+  left: 30px;
+  background: #FFFF;
+  width: 100%;
+}
+
+.msg {
+  color: #0000;
+  padding: 10px;
+  width: 400px;
+  background: #FF9966;
+}
+
+.others {
+  background: #99D8FF;
+}
+
+.juliet {
+  background: #FF69B4;
+}
+
+
+
+#userField {
+  width: 100%;
+  position: relative;
+  top: 1px;
+}
+
+#header {
+  color: #0000;
+  width: 400px;
+  font-weight: bold;
+  padding: 10px;
+  background: #FFFF;
+}
+
+#footer {
+  color: #EEE;
+  width: 400px;
+  height: 34px;
+  font-weight: bold;
+  padding: 10px;
+  background: #FFFF;
+}
+
+#roomSelect {
+  width: 100%;
+}
+
+.undo {
+  padding: 20px 0;
+}	
+/*Correcion color texto chat*/
+input#textField{
+	color: black;
+}
+
+.postredest {
+	
+	padding-left: 80%;
+}
+
+.postredesf{
+	
+	padding-left: 85%;
+}
+	

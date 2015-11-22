@@ -2,6 +2,7 @@
 
 [% 
 
+	//Sitios de alquiler
 	var template : Template;
 	template := TemplateFactory.load('./sitiosDeAlquiler/ControllerSitiosDeAlquilerJAVA.egl');
 	template.generate(controllersDir()+'ControllerSitiosDeAlquiler.java');
@@ -17,5 +18,16 @@
 	
 	template := TemplateFactory.load('./sitiosDeAlquiler/misSitiosAlquilerSCALA_HTML.egl');
 	template.generate(viewsDir()+'misSitiosAlquiler.scala.html');
-
+	
+	//Estaciones de los sitios de alquiler
+	
+	template := TemplateFactory.load('./sitiosDeAlquiler/EstacionDAO_JAVA.egl');
+	template.generate(databaseDir()+'EstacionDAO.java');
+	
+	template := TemplateFactory.load('./sitiosDeAlquiler/EstacionJAVA.egl');
+	template.generate(modelsDir()+'Estacion.java');
+	
+	template := TemplateFactory.load('./sitiosDeAlquiler/detalleEstacionSCALA_HTML.egl');
+	template.generate(viewsDir()+'detalleEstacion.scala.html');
+	
 %]

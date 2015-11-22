@@ -1,0 +1,96 @@
+@(estacionForm: ControllerSitiosDeAlquiler.FormularioEstacion,
+	nuevaEstacion: Boolean)
+
+@import helper._
+
+@main("Formulario estacion") {
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=es"></script>
+<script type="text/javascript" src="@routes.Assets.at("js/escarabajoSitios.js")"></script>
+<script>
+	window.onload = asignarUbicacion(@estacionForm.latitud,@estacionForm.longitud,@nuevaEstacion);
+</script>
+ <div class="container">
+	<h1></h1>
+	@helper.form(action = routes.ControllerSitiosDeAlquiler.guardarEstacion(nuevaEstacion)) {	
+	<fieldset style="padding-left: 1cm;">			
+		@if(nuevaEstacion){
+		<legend>Estación: Nueva estación</legend>		
+		}else{
+		<legend>Estación: @estacionForm.nombre</legend>
+		}		
+		<input name="id" id="id" type="hidden" value="@estacionForm.id"/>
+		<table class="table">		
+			<tr>
+				<td width="20%">Nombre:</td>
+				<td width="20%"><input placeholder="Nombre estación" class="form-control" name="nombre" id="nombre" value="@estacionForm.nombre"/></td>
+				<td width="60%"><em>Agregue un nombre para la estación a crear. <br>Por ejemplo: "Estación Biblioteca Virgilio Barco"</em></td>
+			</tr>	
+			<div class="row" >
+				<input type="hidden" id="latitud" name="latitud" value="" hidden=true></input>
+			</div>
+			<div class="row">
+				<input type="hidden" id="longitud" name="longitud" value="" hidden=true></input>
+			</div>	
+			<tr>
+				<td>Hora inicio atención:</td>
+				<td>
+				<select class="form-control"  name="horaInicioAtencion">
+				 @for(hora <- models.Horas.values()){
+			        <option value="@hora.getHora()" @if(!nuevaEstacion && hora.getHora().equals(estacionForm.horaInicioAtencion)){selected} >@hora.getHora()</option>
+			     }
+			     </select>
+			     </td>
+				<td><em>Seleccione la hora de inicio de atención de la atención.</td>
+			</tr>
+			<tr>
+				<td>Hora fin atención:</td>
+				<td>
+				<select class="form-control"  name="horaFinAtencion">
+				@for(hora <- models.Horas.values()){
+			        <option value="@hora.getHora()" @if(!nuevaEstacion && hora.getHora().equals(estacionForm.horaFinAtencion)){selected} >@hora.getHora()</option>
+			     }
+			     </select>
+			     </td>
+				<td><em>Seleccione la hora de inicio de atención.</td>
+			</tr>
+			<tr>
+				<td>Para alquiler:</td>
+				<td>
+					<select class="form-control"  name="paraAlquiler">
+						<option value="true" @if(!nuevaEstacion && true==estacionForm.paraAlquiler){selected} > Si </option>
+						<option value="false" @if(!nuevaEstacion && false==estacionForm.paraAlquiler){selected} > No </option>											
+					</select>
+				</td>
+				<td><em>Seleccione si en la estación se pueden alquilar las bicicletas. <br>Por ejemplo: "Si"</em></td>
+			</tr>
+			<tr>
+				<td>Para entrega:</td>
+				<td>
+					<select class="form-control"  name="paraEntrega">
+						<option value="true" @if(true==estacionForm.paraEntrega){selected} > Si </option>
+						<option value="false" @if(false==estacionForm.paraEntrega){selected} > No </option>											
+					</select>
+				</td>
+				<td><em>Seleccione si en la estación se pueden entregar las bicicletas alquiladas. <br>Por ejemplo: "Si"</em></td>
+			</tr>
+			<tr>
+				<td>
+					Seleccione la ubicación en el mapa:
+				</td>
+				<td style="width:100%" colspan="2">
+				<div class="row" style="width:100%;margin: 0 auto;">
+					<div id="dvMap" style="width: 500px; height: 500px; margin: 0 auto;">
+					</div>	
+				</div>
+				</td>
+			</tr>		
+		</table>
+	</fieldset>
+	<br/>
+	
+	<br/>
+	<input type="submit" class="btn btn-primary" value="Guardar" style="margin-left: 1cm;">
+	<a class="btn" href="@routes.ControllerSitiosDeAlquiler.listarSitiosDeAlquiler()">Cancelar</a>
+	}
+	</div>
+}
