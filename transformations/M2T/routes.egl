@@ -14,6 +14,16 @@ GET 	/retos/:id 					controllers.ControllerRetos.details(id: Long)
 POST 	/retos/save 				controllers.ControllerRetos.guardar(nuevoReto: Boolean)
 GET     /retosUsuario	 			controllers.ControllerRetos.listarRetosUsuario()
 
+[%
+	if(Feature.allInstances().exists(feat | feat.name="ReporteRecorrido") or 
+	Feature.allInstances().exists(feat | feat.name="ReporteMetricas") or 
+	Feature.allInstances().exists(feat | feat.name="ReporteHistorico")){%]
+#Reportes
+GET		/generarReporte				controllers.ControllerReportes.generarReportePDF(criteriaReporte: Integer)
+GET		/generarReporteParam		controllers.ControllerReportes.generarReporteParamPDF(criteriaReporte: Integer, idRecorrido: Long)
+	[%}
+%]
+
 #Recompensas
 GET     /guardarRecompensaUsuario	controllers.ControllerRecompensas.guardarRecompensaUsuario(id: Long)
 GET     /recompensas	 			controllers.ControllerRecompensas.listarRecompensas()
