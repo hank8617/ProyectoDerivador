@@ -1,0 +1,33 @@
+[%import "../../../libraries/utils.eol";%]
+
+[% 
+
+	//Reportes
+	var template : Template;
+	template := TemplateFactory.load('./reportes/ControllerReportesJAVA.egl');
+	template.generate(controllersDir()+'ControllersReportes.java');
+	
+	template := TemplateFactory.load('./reportes/ReporteHistoricoJAVA.egl');
+	template.generate(modelsDir()+'ReporteHistorico.java');
+	
+	template := TemplateFactory.load('./reportes/ReporteJAVA.egl');
+	template.generate(modelsDir()+'Reporte.java');
+	
+	template := TemplateFactory.load('./reportes/ReporteMetricasJAVA.egl');
+	template.generate(modelsDir()+'ReporteMetricas.java');
+	
+	template := TemplateFactory.load('./reportes/ReporteRecorridoJAVA.egl');
+	template.generate(modelsDir()+'ReporteRecorrido.java');
+	
+	template := TemplateFactory.load('./reportes/ReportFactoryJAVA.egl');
+	template.generate(modelsDir()+'ReportFactory.java');
+	
+	template := TemplateFactory.load('./reportes/recorridosDetalleSCALA_HTML.egl');
+	template.generate(viewsDir()+'recorridosDetalle.scala.html');
+	
+	template := TemplateFactory.load('./reportes/profileSCALA_HTML.egl');
+	template.generate(viewsDir()+'profile.scala.html');
+	
+	//Archivos JRXML
+
+%]

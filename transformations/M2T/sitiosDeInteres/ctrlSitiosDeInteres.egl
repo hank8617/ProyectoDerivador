@@ -1,0 +1,22 @@
+[%import "../../../libraries/utils.eol";%]
+
+[% 
+
+	//Sitios de interes
+	var template : Template;
+	template := TemplateFactory.load('./sitiosDeInteres/ControllerSitiosDeInteresJAVA.egl');
+	template.generate(controllersDir()+'ControllerSitiosDeInteres.java');
+	
+	template := TemplateFactory.load('./sitiosDeInteres/SitioDeInteresDAOJAVA.egl');
+	template.generate(databaseDir()+'SitioDeInteresDAO.java');
+	
+	template := TemplateFactory.load('./sitiosDeInteres/SitioDeInteresJAVA.egl');
+	template.generate(modelsDir()+'SitioDeInteres.java');
+	
+	template := TemplateFactory.load('./sitiosDeInteres/detalleSitioDeInteresSCALA_HTML.egl');
+	template.generate(viewsDir()+'detalleSitioDeInteres.scala.html');
+	
+	template := TemplateFactory.load('./sitiosDeInteres/sitiosDeInteresSCALA_HTML.egl');
+	template.generate(viewsDir()+'sitiosDeInteres.scala.html');
+	
+%]

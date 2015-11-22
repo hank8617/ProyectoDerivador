@@ -1,0 +1,57 @@
+@(sitioForm: ControllerSitiosDeInteres.FormularioSitioDeInteres,
+	nuevoSitio : Boolean)
+@import helper._
+
+@main("Formulario reto") {
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=es"></script>
+<script type="text/javascript" src="@routes.Assets.at("js/escarabajoSitios.js")"></script>
+<script>
+	window.onload = asignarUbicacion(@sitioForm.latitud,@sitioForm.longitud,@nuevoSitio);
+</script>
+
+ <div class="container">
+	<h1></h1>
+	@helper.form(action = routes.ControllerSitiosDeInteres.guardar(nuevoSitio)) {
+	<fieldset style="padding-left: 1cm;">
+		@if(nuevoSitio){
+		<legend>Sitio de interes: Nuevo sitio</legend>		
+		}else{
+		<legend>Sitio de interes: @sitioForm.nombre</legend>
+		}		
+		<input name="id" id="id" type="hidden" value="@sitioForm.id"/>
+		<table class="table">		
+			<tr>
+				<td width="20%">Nombre:</td>
+				<td width="20%"><input placeholder="Parque Simon Bolivar" class="form-control" name="nombre" id="nombre" value="@sitioForm.nombre"/></td>
+				<td width="60%"><em>Agregue un nombre para el sitio de interes a crear.</td>
+			</tr>	
+			<tr>
+				<td width="20%">Descripcion:</td>
+				<td width="20%"><textarea rows="10" cols="15" placeholder="Descripcion del sitio de interes" class="form-control" name="descripcion" id="descripcion">@sitioForm.descripcion</textarea></td>
+				<td width="60%"><em>Agregue la descripción del sitio de interes.</td>
+			</tr>
+			<div class="row" >
+				<input type="hidden" id="latitud" name="latitud" value="" hidden=true></input>
+			</div>
+			<div class="row">
+				<input type="hidden" id="longitud" name="longitud" value="" hidden=true></input>
+			</div>		
+			<tr>
+				<td>
+					Seleccione la ubicación en el mapa:
+				</td>
+				<td style="width:100%" colspan="2">
+				<div class="row" style="width:100%;margin: 0 auto;">
+					<div id="dvMap" style="width: 500px; height: 500px; margin: 0 auto;">
+					</div>	
+				</div>
+				</td>
+			</tr>
+		</table>
+	</fieldset>
+	<br/>
+	<input type="submit" class="btn btn-primary" value="Guardar" style="margin-left: 1cm;">
+	<a class="btn" href="@routes.ControllerSitiosDeInteres.listarSitiosDeInteres()">Cancelar</a>
+	}
+	</div>
+}

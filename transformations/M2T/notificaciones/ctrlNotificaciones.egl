@@ -1,0 +1,45 @@
+[%import "../../../libraries/utils.eol";%]
+
+[% 
+
+	//Notificaciones
+	var template : Template;
+	template := TemplateFactory.load('./notificaciones/CatalogoNotificacionesJAVA.egl');
+	template.generate(notificacionesDir()+'CatalogoNotificaciones.java');
+	
+	template := TemplateFactory.load('./notificaciones/ICatalogoNotificacionesJAVA.egl');
+	template.generate(notificacionesDir()+'ICatalogoNotificaciones.java');
+	
+	template := TemplateFactory.load('./notificaciones/NotificadorJAVA.egl');
+	template.generate(notificacionesDir()+'Notificador.java');
+	
+	template := TemplateFactory.load('./notificaciones/cambio_participacion_frecuenteSCALA_HTML.egl');
+	template.generate(notificacionesViewsDir()+'cambio_participacion_frecuente.scala.html');
+	
+	template := TemplateFactory.load('./notificaciones/cambio_participacion_recreacionSCALA_HTML.egl');
+	template.generate(notificacionesViewsDir()+'cambio_participacion_recreacion.scala.html');
+	
+	template := TemplateFactory.load('./notificaciones/invitacion_recorrido_frecuenteSCALA_HTML.egl');
+	template.generate(notificacionesViewsDir()+'invitacion_recorrido_frecuente.scala.html');
+	
+	template := TemplateFactory.load('./notificaciones/invitacion_recorrido_recreacionSCALA_HTML.egl');
+	template.generate(notificacionesViewsDir()+'invitacion_recorrido_recreacion.scala.html');
+	
+	template := TemplateFactory.load('./notificaciones/nuevo_reto_alcanzadoSCALA_HTML.egl');
+	template.generate(notificacionesViewsDir()+'nuevo_reto_alcanzado.scala.html');
+	
+	template := TemplateFactory.load('./notificaciones/recompensa_reclamadaSCALA_HTML.egl');
+	template.generate(notificacionesViewsDir()+'recompensa_reclamada.scala.html');
+	
+	//Controladores
+	
+	template := TemplateFactory.load('./notificaciones/ControllerRecompensasJAVA.egl');
+	template.generate(controllersDir()+'ControllerRecompensas.java');
+	
+	template := TemplateFactory.load('./notificaciones/ControllerRecorridoJAVA.egl');
+	template.generate(controllersDir()+'ControllerRecorrido.java');
+	
+	template := TemplateFactory.load('./notificaciones/ControllerRetosJAVA.egl');
+	template.generate(controllersDir()+'ControllerRetoscompensas.java');
+
+%]

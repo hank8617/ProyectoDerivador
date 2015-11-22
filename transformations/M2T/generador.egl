@@ -6,13 +6,59 @@
 	
 	var template : Template;
 
-	if(Feature.allInstances().exists(feat | feat.name="SitiosAlquiler")){		
+	if(Feature.allInstances().exists(feat | feat.name="SitiosAlquiler")){	
+		"SitiosAlquiler".println();	
 		template := TemplateFactory.load('./sitiosDeAlquiler/ctrlSitiosDeAlquiler.egl');
 		template.process();
 	}
 	
-	if(Feature.allInstances().exists(feat | feat.name="ConfiguradorBicicletas")){		
+	if(Feature.allInstances().exists(feat | feat.name="SitiosInteres")){	
+		"SitiosInteres".println();	
+		template := TemplateFactory.load('./sitiosDeInteres/ctrlSitiosDeInteres.egl');
+		template.process();
+	}
+	
+	if(Feature.allInstances().exists(feat | feat.name="ConfiguradorBicicletas")){	
+		"ConfiguradorBicicletas".println();	
 		template := TemplateFactory.load('./configuradorBicicletas/ctrlConfiguradorBicicletas.egl');
+		template.process();
+	}
+	
+	if(Feature.allInstances().exists(feat | feat.name="Twitter") or
+		Feature.allInstances().exists(feat | feat.name="Facebook")){
+		"Twitter".println();
+		"Facebook".println();		
+		template := TemplateFactory.load('./autenticacionRedes/ctrlAutenticaciones.egl');
+		template.process();
+	}
+	
+	if(Feature.allInstances().exists(feat | feat.name="Notificaciones")){	
+		"Notificaciones".println();	
+		template := TemplateFactory.load('./notificaciones/ctrlNotificaciones.egl');
+		template.process();
+	}
+	
+	if(Feature.allInstances().exists(feat | feat.name="Publicadortwitter")
+		or Feature.allInstances().exists(feat | feat.name="Publicadorfacebook")){	
+		"PublicadorTwitter".println();
+		"PublicadorFacebook".println();	
+		template := TemplateFactory.load('./publicaciones/ctrlPublicaciones.egl');
+		template.process();
+	}
+	
+	if(Feature.allInstances().exists(feat | feat.name="ReporteRecorrido") or 
+		Feature.allInstances().exists(feat | feat.name="ReporteMetricas") or 
+		Feature.allInstances().exists(feat | feat.name="ReporteHistorico")){
+		if(Feature.allInstances().exists(feat | feat.name="ReporteRecorrido")){
+			"ReporteRecorrido".println();
+		}
+		if(Feature.allInstances().exists(feat | feat.name="ReporteMetricas")){
+			"ReporteMetricas".println();
+		}
+		if(Feature.allInstances().exists(feat | feat.name="ReporteHistorico")){
+			"ReporteHistorico".println();
+		}	
+		template := TemplateFactory.load('./reportes/ctrlReportes.egl');
 		template.process();
 	}
 	

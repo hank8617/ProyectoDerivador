@@ -174,7 +174,7 @@
 				<button id="btnRetirar" class="btn btn-primary" onclick="asignaInscripcion('@formRecorrido.idRecorrido'); return false;">Unirme al recorrido</button>
 			}
 			[%
-			if(Feature.allInstances().exists(feat | feat.name="ReporteRutas")){%] 
+			if(Feature.allInstances().exists(feat | feat.name="ReporteRecorrido")){%] 
 			<a class="btn btn-primary" href="@routes.ControllerReportes.generarReporteParamPDF(3, formRecorrido.idRecorrido)" role="button">Reporte Recorrido</a>
 			[%}
 			%]

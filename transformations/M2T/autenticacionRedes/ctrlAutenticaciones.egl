@@ -1,0 +1,17 @@
+[%import "../../../libraries/utils.eol";%]
+
+[% 
+
+	//Sitios de alquiler
+	var template : Template;
+	
+	template := TemplateFactory.load('./autenticacionRedes/loginSCALA_HTML.egl');
+	template.generate(viewsDir()+'login.scala.html');
+	
+	template := TemplateFactory.load('./autenticacionRedes/signupSCALA_HTML.egl');
+	template.generate(viewsDir()+'signup.scala.html');
+	
+	template := TemplateFactory.load('./autenticacionRedes/playPLUGINS.egl');
+	template.generate(confDir()+'play.plugins');
+	
+%]

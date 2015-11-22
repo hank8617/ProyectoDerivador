@@ -2,7 +2,7 @@
 
 [% 
 
-	//Sitios de alquiler
+	//Configurador de bicicletas
 	var template : Template;
 	template := TemplateFactory.load('./configuradorBicicletas/ConfiguradorControllerJAVA.egl');
 	template.generate(controllersDir()+'ConfiguradorController.java');
@@ -15,5 +15,49 @@
 	
 	template := TemplateFactory.load('./configuradorBicicletas/modelXML.egl');
 	template.generate(confDir()+'model.xml');
+	
+	//Archivos generated
+	var template : Template;
+	template := TemplateFactory.load('./configuradorBicicletas/generated/AltJAVA.egl');
+	template.generate(genDir()+'Alt.java');
+	
+	template := TemplateFactory.load('./configuradorBicicletas/generated/AndJAVA.egl');
+	template.generate(genDir()+'And.java');
+	
+	template := TemplateFactory.load('./configuradorBicicletas/generated/ConstraintsJAVA.egl');
+	template.generate(genDir()+'Constraints.java');
+	
+	template := TemplateFactory.load('./configuradorBicicletas/generated/FeatureJAVA.egl');
+	template.generate(genDir()+'Feature.java');
+	
+	template := TemplateFactory.load('./configuradorBicicletas/generated/FeatureModelJAVA.egl');
+	template.generate(genDir()+'FeatureModel.java');
+	
+	template := TemplateFactory.load('./configuradorBicicletas/generated/FeatureOrderJAVA.egl');
+	template.generate(genDir()+'FeatureOrder.java');
+	
+	template := TemplateFactory.load('./configuradorBicicletas/generated/ImpJAVA.egl');
+	template.generate(genDir()+'Imp.java');
+	
+	template := TemplateFactory.load('./configuradorBicicletas/generated/NamedElementJAVA.egl');
+	template.generate(genDir()+'NamedElement.java');
+	
+	template := TemplateFactory.load('./configuradorBicicletas/generated/NotJAVA.egl');
+	template.generate(genDir()+'Not.java');
+	
+	template := TemplateFactory.load('./configuradorBicicletas/generated/ObjectFactoryJAVA.egl');
+	template.generate(genDir()+'ObjectFactory.java');
+	
+	template := TemplateFactory.load('./configuradorBicicletas/generated/OrJAVA.egl');
+	template.generate(genDir()+'Or.java');
+	
+	template := TemplateFactory.load('./configuradorBicicletas/generated/ParentJAVA.egl');
+	template.generate(genDir()+'Parent.java');
+	
+	template := TemplateFactory.load('./configuradorBicicletas/generated/RuleJAVA.egl');
+	template.generate(genDir()+'Rule.java');
+	
+	template := TemplateFactory.load('./configuradorBicicletas/generated/StructJAVA.egl');
+	template.generate(genDir()+'Struct.java');
 	
 %]

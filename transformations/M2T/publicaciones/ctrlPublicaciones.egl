@@ -1,0 +1,10 @@
+[%import "../../../libraries/utils.eol";%]
+
+[% 
+
+	//Publicaciones
+	var template : Template;
+	template := TemplateFactory.load('./publicaciones/publicacionesPROPERTIES.egl');
+	template.generate(confDir()+'publicaciones.properties');
+	
+%]
