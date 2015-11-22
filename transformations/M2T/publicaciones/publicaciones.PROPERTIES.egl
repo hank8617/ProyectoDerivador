@@ -1,11 +1,11 @@
-                        [%if(Feature.allInstances().exists(feat | feat.name="Twitter")){%]
-                            [%if(Feature.allInstances().exists(feat | feat.name="Facebook")){%]
+                        [%if(Feature.allInstances().exists(feat | feat.name="Publicadortwitter")){%]
+                            [%if(Feature.allInstances().exists(feat | feat.name="Publicadorfacebook")){%]
                             	value=4
                         	[%}%]
                             [%else%]
                         		value=2    
                         [%}%]
-                         [%else if(Feature.allInstances().exists(feat | feat.name="Facebook"))%]
+                         [%else if(Feature.allInstances().exists(feat | feat.name="Publicadorfacebook"))%]
                          	    value=3 
                          [%}%]
                          [%else%]
