@@ -76,7 +76,11 @@
 						<li class="@("active".when(nav == "profile"))"><a href="@routes.ConfiguradorController.index()">MiBici</a></li>
                         [%}%]
                         }                       					
-
+						
+						[%if(Feature.allInstances().exists(feat | feat.name="ConfiguradorBicicletas")){%]
+						<li><a href="@routes.ConfiguradorController.index()">Mi Bici</a></li>
+						[%}%]
+						
 						@subjectNotPresent() {
                             <li class="@("active".when(nav == "signup"))"><a href="@routes.Application.signup()">@Messages("playauthenticate.navigation.signup")</a></li>
                         }
@@ -89,9 +93,15 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> @user.name <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li class="@("active".when(nav == "profile"))"><a href="@routes.Application.profile()">@Messages("playauthenticate.navigation.profile")</a></li>
+                                    
+                                    [% if(Feature.allInstances().exists(feat | feat.name="Facebook") or 
+	Feature.allInstances().exists(feat | feat.name="Twitter") {%]
+                                    
                                     @restrict(la(as("user"))) {
                                     <li><a href="@routes.Account.link()">@Messages("playauthenticate.navigation.link_more")</a></li>
                                     }
+                                    [%}%]
+                                    
                                     <li class="divider"></li>
                                     <li><a href="@com.feth.play.module.pa.controllers.routes.Authenticate.logout()"><i class="icon-off"></i> @Messages("playauthenticate.navigation.logout")</a></li>
                                 </ul>
