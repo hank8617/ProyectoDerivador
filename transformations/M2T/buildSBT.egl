@@ -52,12 +52,11 @@ val appDependencies = Seq(
   // Comment the next line for local development of the Play Authentication core:
   "com.feth"      %% "play-authenticate" % "0.7.0",
   "org.postgresql" % "postgresql" % "9.4-1204-jdbc42",
-  "com.typesafe.play" %% "play-json" % "2.4.3"
-[%
+  "com.typesafe.play" %% "play-json" % "2.4.3"[%
 	if(Feature.allInstances().exists(feat | feat.name="ReporteRutas") or 
 	Feature.allInstances().exists(feat | feat.name="ReporteMetricas") or 
-	Feature.allInstances().exists(feat | feat.name="ReporteHistorialViajes")){%]
-"net.sf.jasperreports" % "jasperreports"  % "6.1.0"
+	Feature.allInstances().exists(feat | feat.name="ReporteHistorialViajes")){%],
+  "net.sf.jasperreports" % "jasperreports"  % "6.1.0"
 	[%}
 %]
 )

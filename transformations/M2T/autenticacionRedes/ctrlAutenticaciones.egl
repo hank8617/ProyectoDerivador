@@ -2,7 +2,7 @@
 
 [% 
 
-	//Sitios de alquiler
+	//Autenticaciones
 	var template : Template;
 	
 	template := TemplateFactory.load('./autenticacionRedes/loginSCALA_HTML.egl');

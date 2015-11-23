@@ -41,7 +41,7 @@
     <div class="col-xs-12 col-md-4">
     <br>
     [% if(Feature.allInstances().exists(feat | feat.name="Facebook") or 
-	Feature.allInstances().exists(feat | feat.name="Twitter") {%]
+	Feature.allInstances().exists(feat | feat.name="Twitter")) {%]
         @Messages("playauthenticate.signup.oauth")
         
     [%}%]

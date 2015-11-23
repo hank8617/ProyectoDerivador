@@ -95,7 +95,7 @@
                                     <li class="@("active".when(nav == "profile"))"><a href="@routes.Application.profile()">@Messages("playauthenticate.navigation.profile")</a></li>
                                     
                                     [% if(Feature.allInstances().exists(feat | feat.name="Facebook") or 
-	Feature.allInstances().exists(feat | feat.name="Twitter") {%]
+											Feature.allInstances().exists(feat | feat.name="Twitter")) {%]
                                     
                                     @restrict(la(as("user"))) {
                                     <li><a href="@routes.Account.link()">@Messages("playauthenticate.navigation.link_more")</a></li>

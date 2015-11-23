@@ -1,0 +1,50 @@
+@(message: String, mensaje :String , url: String)
+
+
+@main("publicadorfacebook") {
+<div class = "postredesf">
+<script >
+
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+	  FB.init({
+	appId      : '1485449348416707',
+	status     : true,
+	cookie     : true,                   
+	xfbml      : true,  
+	version    : 'v2.2' 
+		});
+}
+
+var publicarfb = function (){
+    FB.ui(
+      {
+    	  method: 'feed',
+    	     name: '@mensaje',
+    	     link: 'https://github.com/MISO4204-201520/escarabajo/wiki',
+    	     picture: '@url',
+    	     caption: 'Reference Documentation',
+    	     description: 'Escarabajo es una aplicacion para el uso de bicicletas',
+    	     message: 'Facebook Dialogs are easy!'
+    	   },
+    	   function(response) {
+    	     if (response && response.post_id) {
+    	           	     } else {
+    	           	     }
+    	   }
+    	   );
+}
+
+</script>
+
+				<input type=image src="/assets/icons/compartirfacebook.png" onclick="publicarfb()">
+</div>
+
+
+}

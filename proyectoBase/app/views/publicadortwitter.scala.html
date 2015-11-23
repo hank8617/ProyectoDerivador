@@ -1,0 +1,43 @@
+@(message: String , mensaje : String)
+
+
+@main("publicadortwitter") {
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.2/angular.min.js"></script> 
+<script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
+<script src="https://cdn.firebase.com/libs/angularfire/0.9.2/angularfire.min.js"></script>
+
+<div class = "postredest">
+<a class="twitter-share-button"
+  href="https://twitter.com/share"
+  data-size="large"
+  data-url="https://github.com/MISO4204-201520/escarabajo/wiki"
+  data-count-url="https://github.com/MISO4204-201520/escarabajo/wiki"
+  data-via="Line_Escarabajo"
+  data-related="twitterapi,twitter"
+  data-hashtags="ALosAndesEnBici"
+  data-text="@mensaje">
+Tweet
+</a>
+</div>
+<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+
+<script>
+var publicartwitter = function (){
+	twttr.widgets.createShareButton(
+			  "https:\/\/dev.twitter.com\/web\/tweet-button",
+			  document.getElementById("tweet-container"),
+			  {
+			    size: "large",
+			    via: "twitterdev",
+			    related: "twitterapi,twitter",
+			    text: "custom share text",
+			    hashtags: "example,demo"
+			  }
+			);
+	}
+
+</script>
+
+}

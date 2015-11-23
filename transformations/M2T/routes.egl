@@ -5,6 +5,11 @@
 # Home page
 GET     /                           controllers.Application.index()
 
+#Chat
+GET         /chat                  controllers.ChatApplication.index
+GET         /chatFeed/:room        controllers.ChatApplication.chatFeed(room: String)
+POST        /chat                  controllers.ChatApplication.postMessage
+
 #Retos
 GET     /retos	 					controllers.ControllerRetos.listarRetos()
 GET     /retosActivos	 			controllers.ControllerRetos.listarRetosActivos()
@@ -56,6 +61,15 @@ GET 	/sitiosDeAlquiler/ 		    controllers.ControllerSitiosDeAlquiler.newSitio()
 GET 	/estaciones/	 		    controllers.ControllerSitiosDeAlquiler.newEstacion()
 POST 	/estaciones/save			controllers.ControllerSitiosDeAlquiler.guardarEstacion(nuevaEstacion: Boolean)
 DELETE  /estaciones/:id 			controllers.ControllerSitiosDeAlquiler.eliminarEstacion(id: Long)		
+[% } %]
+
+[% if(Feature.allInstances().exists(feat | feat.name="SitiosInteres")){%]		
+#Sitios de interes
+GET     /sitiosdeinteres	 		controllers.ControllerSitiosDeInteres.listarSitiosDeInteres()
+GET 	/agregarSitioDeInteres 		controllers.ControllerSitiosDeInteres.agregarSitioDeInteres()
+DELETE  /sitiosDeInteres/:id 		controllers.ControllerSitiosDeInteres.eliminarSitioDeInteres(id: Long)
+GET 	/sitiosDeInteres/:id 		controllers.ControllerSitiosDeInteres.details(id: Long)
+POST 	/sitiosDeInteres/save 		controllers.ControllerSitiosDeInteres.guardar(nuevoSitio: Boolean)
 [% } %]
 
 [% if(Feature.allInstances().exists(feat | feat.name="ConfiguradorBicicletas")){%]

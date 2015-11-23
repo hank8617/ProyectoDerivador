@@ -40,6 +40,6 @@
 	template.generate(controllersDir()+'ControllerRecorrido.java');
 	
 	template := TemplateFactory.load('./notificaciones/ControllerRetosJAVA.egl');
-	template.generate(controllersDir()+'ControllerRetoscompensas.java');
+	template.generate(controllersDir()+'ControllerRetos.java');
 
 %]

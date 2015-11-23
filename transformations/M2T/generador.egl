@@ -72,5 +72,8 @@
 	template := TemplateFactory.load('./UserJAVA.egl');
 	template.generate(modelsDir()+"/User.java");
 	
+	template := TemplateFactory.load('./buildSBT.egl');
+	template.generate(projectName()+"/build.sbt");
+	
 %]
 

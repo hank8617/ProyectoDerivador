@@ -5,7 +5,7 @@
 	//Reportes
 	var template : Template;
 	template := TemplateFactory.load('./reportes/ControllerReportesJAVA.egl');
-	template.generate(controllersDir()+'ControllersReportes.java');
+	template.generate(controllersDir()+'ControllerReportes.java');
 	
 	template := TemplateFactory.load('./reportes/ReporteHistoricoJAVA.egl');
 	template.generate(modelsDir()+'ReporteHistorico.java');

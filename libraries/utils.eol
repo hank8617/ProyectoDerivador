@@ -57,12 +57,24 @@ operation viewsDir(){
 	return appDir()+"views/";
 }
 
+operation notificacionesViewsDir(){
+	return viewsDir()+"notifications/templates/";
+}
+
 operation persistenceControllerDir() {
 	return srcDir()+packageToDir(persistenceManagerPackage());
 }
 
 operation confDir(){
 	return projectName()+"conf/";
+}
+
+operation genDir(){
+	return appDir()+"generated/";
+}
+
+operation notificacionesDir(){
+	return appDir()+"notificaciones/";
 }
 
 
